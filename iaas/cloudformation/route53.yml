@@ -1,0 +1,49 @@
+AWSTemplateFormatVersion: '2010-09-09'
+Description: Creates an Amazon Route 53 hosted zone
+Parameters:
+  HostedZone:
+    Type: String
+    Description: The DNS name of an Amazon Route 53 hosted zone e.g. jevsejev.io
+    AllowedPattern: (?!-)[a-zA-Z0-9-.]{1,63}(?<!-)
+    ConstraintDescription: must be a valid DNS zone name.
+  HostedZoneExists:
+    Type: String
+    AllowedValues:
+      - true
+      - false
+    Default: false
+    Description: Parameter to determine if HostedZone needs to be created
+  Environment:
+    Type: String
+    Description: Environment of hosted zone
+
+Conditions:
+  CreateHostedZone: !Equals [!Ref HostedZoneExists, false]
+Resources:
+#######################################
+## Route53 HostedZone record in AWS
+## This is currently commented out since the VSSDevelopment hosted zone already exists
+#######################################
+  DNS:
+    Type: AWS::Route53::HostedZone
+    Condition: CreateHostedZone
+    Properties:
+      HostedZoneConfig:
+        Comment: !Join ['', ['Hosted zone for ', !Ref 'HostedZone']]
+      Name: !Ref 'HostedZone'
+      HostedZoneTags:
+      - Key: TIER
+        Value: !Ref Environment
+      - Key: APP
+        Value: AMAZONIAN
+  WebsiteCertificate:
+    Type: AWS::CertificateManager::Certificate
+    Properties:
+      DomainName: 
+        !Join [".", ["*", !Ref HostedZone]]
+Outputs:
+  WebsiteCertficationArn:
+    Value: !Ref 'WebsiteCertificate'
+    Export:
+      Name: !Join ["-", [!Ref Environment, WebsiteCertArn]]
+    Description: Certificate arn

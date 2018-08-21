@@ -2,24 +2,78 @@
 
 
 [[projects]]
-  digest = "1:c64cf9c8010d23098d475f6434bdeb8f96dedeadf886a74e5dd3255b486d26a4"
   name = "github.com/aws/aws-lambda-go"
   packages = [
     "events",
     "lambda",
     "lambda/messages",
-    "lambdacontext",
+    "lambdacontext"
   ]
-  pruneopts = ""
-  revision = "e630af386f8aad6ec9fc899b951cf62d37cfe56f"
-  version = "v1.4.0"
+  revision = "2d482ef09017ae953b1e8d5a6ddac5b696663a3c"
+  version = "v1.6.0"
+
+[[projects]]
+  name = "github.com/aws/aws-sdk-go"
+  packages = [
+    "aws",
+    "aws/awserr",
+    "aws/awsutil",
+    "aws/client",
+    "aws/client/metadata",
+    "aws/corehandlers",
+    "aws/credentials",
+    "aws/credentials/ec2rolecreds",
+    "aws/credentials/endpointcreds",
+    "aws/credentials/stscreds",
+    "aws/csm",
+    "aws/defaults",
+    "aws/ec2metadata",
+    "aws/endpoints",
+    "aws/request",
+    "aws/session",
+    "aws/signer/v4",
+    "internal/sdkio",
+    "internal/sdkrand",
+    "internal/sdkuri",
+    "internal/shareddefaults",
+    "private/protocol",
+    "private/protocol/query",
+    "private/protocol/query/queryutil",
+    "private/protocol/rest",
+    "private/protocol/xml/xmlutil",
+    "service/cloudformation",
+    "service/cloudformation/cloudformationiface",
+    "service/sts"
+  ]
+  revision = "66974140c322f22c1daaf95a18930ea6a9e4d21e"
+  version = "v1.15.16"
+
+[[projects]]
+  name = "github.com/go-ini/ini"
+  packages = ["."]
+  revision = "358ee7663966325963d4e8b2e1fbd570c5195153"
+  version = "v1.38.1"
+
+[[projects]]
+  name = "github.com/jmespath/go-jmespath"
+  packages = ["."]
+  revision = "0b12d6b5"
+
+[[projects]]
+  branch = "master"
+  name = "github.com/larse514/aws-cloudformation-go"
+  packages = ["."]
+  revision = "1c4073bf593b63a6409caebecdddc76213aca606"
+
+[[projects]]
+  name = "github.com/larse514/serverlessui"
+  packages = ["serverless-ui/iaas"]
+  revision = "9e73d853208a965dba5fea8b95f33ab46ad98f31"
+  version = "v0.0.23"
 
 [solve-meta]
   analyzer-name = "dep"
   analyzer-version = 1
-  input-imports = [
-    "github.com/aws/aws-lambda-go/events",
-    "github.com/aws/aws-lambda-go/lambda",
-  ]
+  inputs-digest = "ee5d9e874b5836c98a7676b2bf1a5119d7aab89eefadbcaba4b8576b71fe515d"
   solver-name = "gps-cdcl"
   solver-version = 1
