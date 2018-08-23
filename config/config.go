@@ -19,7 +19,7 @@ import (
 
 //CreateDeployAction method to create implementation of DeployAction interface
 func CreateDeployAction() handler.DeployAction {
-	cloudformation := CreateCloudformation()
+	cloudformation := createCloudformation()
 	return actions.ServerlessUI{DNS: CreateDNS(cloudformation), Bucket: CreateS3Bucket(cloudformation)}
 }
 
@@ -32,10 +32,15 @@ func CreateDNS(cloudformation *cloudformation.CloudFormation) actions.DNS {
 func CreateS3Bucket(cloudformation *cloudformation.CloudFormation) actions.Bucket {
 	return &bucket.S3Bucket{Executor: createExecutor(cloudformation), Resource: createStack(cloudformation), IaaS: CreateIaaS()}
 }
+
+//CreateStack method to create implementation of Stack interface
+func CreateStack() *cf.Stack {
+	return createStack(createCloudformation())
+}
 func createExecutor(cloudformation *cloudformation.CloudFormation) cf.IaaSExecutor {
 	return cf.IaaSExecutor{Client: cloudformation}
-
 }
+
 func createStack(cloudformation *cloudformation.CloudFormation) *cf.Stack {
 	resource := cf.Stack{Client: cloudformation}
 	return &resource
@@ -46,8 +51,7 @@ func CreateIaaS() iaas.Infrastructure {
 	return &iaas.AWSTemplate{}
 }
 
-//CreateCloudformation method to return implementation of Cloudformation sdk
-func CreateCloudformation() *cloudformation.CloudFormation {
+func createCloudformation() *cloudformation.CloudFormation {
 	// Initialize a session in us-west-2 that the SDK will use to load
 	// credentials from the shared credentials file ~/.aws/credentials.
 	sess, err := session.NewSession(&aws.Config{

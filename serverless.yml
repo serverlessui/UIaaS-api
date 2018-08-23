@@ -59,6 +59,12 @@ functions:
       - http:
           path: buckets
           method: post
+  getstack:
+    handler: bin/stackhandler
+    events:
+      - http:
+          path: stacks/{stackname}
+          method: get
   dns:
     handler: bin/dnshandler
     events:
