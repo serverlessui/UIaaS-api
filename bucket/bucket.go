@@ -5,12 +5,12 @@ import (
 	"strings"
 
 	"github.com/larse514/aws-cloudformation-go"
-	"github.com/larse514/serverlessui/serverless-ui/iaas"
 	"github.com/serverlessui/UIaaS-api/handler"
+	"github.com/serverlessui/UIaaS-api/iaas"
 )
 
 const (
-	//route53 param values
+	//fullSite param values
 	domainNameParam     = "HostedZone"
 	fullDomainNameParam = "FullDomainName"
 	acmCertARNParam     = "AcmCertificateArn"
@@ -54,7 +54,7 @@ func (s3Bucket S3Bucket) DeploySite(input *handler.BucketInput) error {
 }
 
 //Method to convert DomainName from input to stack name
-//route53 does not allow for full stop (.) characters
+//fullSite does not allow for full stop (.) characters
 func getStackName(input *handler.BucketInput) string {
 	return strings.Replace(input.FullDomainName, ".", "-", -1)
 }

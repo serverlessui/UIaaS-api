@@ -45,8 +45,8 @@
     "service/cloudformation/cloudformationiface",
     "service/sts"
   ]
-  revision = "e21dfa909e14ce93f88f1f3505764bc4952a11be"
-  version = "v1.15.18"
+  revision = "4324bc9d8865bdb3e6aa86ec7772ca1272d2750e"
+  version = "v1.15.21"
 
 [[projects]]
   name = "github.com/go-ini/ini"
@@ -65,15 +65,9 @@
   packages = ["."]
   revision = "1c4073bf593b63a6409caebecdddc76213aca606"
 
-[[projects]]
-  name = "github.com/larse514/serverlessui"
-  packages = ["serverless-ui/iaas"]
-  revision = "9e73d853208a965dba5fea8b95f33ab46ad98f31"
-  version = "v0.0.23"
-
 [solve-meta]
   analyzer-name = "dep"
   analyzer-version = 1
-  inputs-digest = "ee5d9e874b5836c98a7676b2bf1a5119d7aab89eefadbcaba4b8576b71fe515d"
+  inputs-digest = "c85ade83f29829a37efcaf3325091dc63a86e87b6fa7177241e5565e0f35063c"
   solver-name = "gps-cdcl"
   solver-version = 1

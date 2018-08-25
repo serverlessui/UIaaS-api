@@ -25,7 +25,7 @@ func CreateDeployAction() handler.DeployAction {
 
 //CreateDNS method to create implementation of DNS interface
 func CreateDNS(cloudformation *cloudformation.CloudFormation) actions.DNS {
-	return &dns.Route53{Executor: createExecutor(cloudformation), Resource: createStack(cloudformation), IaaS: CreateIaaS()}
+	return &dns.FullSite{Executor: createExecutor(cloudformation), Resource: createStack(cloudformation), IaaS: CreateIaaS()}
 }
 
 //CreateS3Bucket method to create implementation of Bucket interface

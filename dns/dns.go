@@ -10,27 +10,27 @@ import (
 )
 
 const (
-	//route53 param values
+	//FullSite param values
 	domainNameParam       = "HostedZone"
 	hostedZoneExistsParam = "HostedZoneExists"
 	environmentParam      = "Environment"
 	websiteArnOutput      = "WebsiteCertArn"
 )
 
-//Route53 is an implementation of the DNS interface
-type Route53 struct {
+//FullSite is an implementation of the DNS interface
+type FullSite struct {
 	Executor cf.Executor
 	Resource cf.Resource
 	IaaS     iaas.Infrastructure
 }
 
-//DeployHostedZone Method to create Route53 hosted zone
-func (route53 Route53) DeployHostedZone(input *handler.DNSInput) (*handler.Route53Output, error) {
+//DeployHostedZone Method to create fullSite hosted zone
+func (fullSite FullSite) DeployHostedZone(input *handler.DNSInput) (*handler.Route53Output, error) {
 	//replace domain name
 	stackName := getStackName(input)
 
 	//todo- i recommend refactoring this out of here
-	stack, err := route53.Resource.GetStack(&stackName)
+	stack, err := fullSite.Resource.GetStack(&stackName)
 	if err != nil {
 		return nil, err
 	}
@@ -39,13 +39,13 @@ func (route53 Route53) DeployHostedZone(input *handler.DNSInput) (*handler.Route
 
 		log.Println("Creating new dns stack")
 
-		template, err := route53.IaaS.GetRoute53()
+		template, err := fullSite.IaaS.GetFullSite()
 
 		if err != nil {
 			return nil, err
 		}
 		//create stack
-		err = route53.Executor.CreateStack(*template, stackName, createDNSInputParameters(input), nil)
+		err = fullSite.Executor.CreateStack(*template, stackName, createDNSInputParameters(input), nil)
 		if err != nil {
 			return nil, err
 		}
@@ -59,7 +59,7 @@ func (route53 Route53) DeployHostedZone(input *handler.DNSInput) (*handler.Route
 }
 
 //Method to convert DomainName from input to stack name
-//route53 does not allow for full stop (.) characters
+//fullSite does not allow for full stop (.) characters
 func getStackName(input *handler.DNSInput) string {
 	return strings.Replace(input.HostedZone, ".", "-", -1)
 }
@@ -79,7 +79,7 @@ func createDNSInputParameters(input *handler.DNSInput) *map[string]string {
 
 }
 
-//NewRoute53 constructor for Route53
-func NewRoute53(executor cf.Executor, resource cf.Resource, iaas iaas.Infrastructure) *Route53 {
-	return &Route53{executor, resource, iaas}
+//NewRoute53 constructor for fullSite
+func NewRoute53(executor cf.Executor, resource cf.Resource, iaas iaas.Infrastructure) *FullSite {
+	return &FullSite{executor, resource, iaas}
 }

@@ -13,7 +13,7 @@ type DeployAction interface {
 	DeployHostedZone(dnsInput *DNSInput) (*Route53Output, error)
 }
 
-//Route53Output struct containing output from Route53
+//Route53Output struct containing output from FullSite
 type Route53Output struct {
 	WebsiteArn string
 }

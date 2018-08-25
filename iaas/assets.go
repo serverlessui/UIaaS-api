@@ -1,8 +1,8 @@
 package iaas
 
 const (
-	route53 = "route53.yml"
-	s3site  = "s3site.yml"
+	fullSite = "fullSite.yml"
+	s3site   = "s3site.yml"
 )
 
 // GetRouterTemplate() (string, error)
@@ -15,13 +15,13 @@ type AWSTemplate struct {
 
 //Infrastructure is the interface to retrieve Iaas Assets
 type Infrastructure interface {
-	GetRoute53() (*string, error)
+	GetFullSite() (*string, error)
 	GetS3Site() (*string, error)
 }
 
-//GetRoute53 method to retrieve Route53 Template
-func (template AWSTemplate) GetRoute53() (*string, error) {
-	return getAsset(route53)
+//GetFullSite to retrieve fullSite Template
+func (template AWSTemplate) GetFullSite() (*string, error) {
+	return getAsset(fullSite)
 }
 
 //GetS3Site method to retrieve S3Site Template

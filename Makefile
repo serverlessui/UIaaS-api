@@ -1,4 +1,7 @@
 SRC_LOCATION=
+IAAS_PATH=iaas/cloudformation/
+IAAS_FILE=iaas.go
+IAAS_LOCATION=iaas
 
 default: clean dependencies test build
 
@@ -8,7 +11,7 @@ build:
 	env GOOS=linux go build -ldflags="-s -w" -o bin/stackhandler stackhandler/main.go
 
 .PHONY: dependencies
-dependencies:
+dependencies: bin-data
 	npm install -g serverless
 	@go get github.com/tools/godep
 	dep ensure -v
@@ -20,7 +23,11 @@ clean:
 .PHONY: deploy
 deploy: 
 	sls deploy --verbose
-	
+
+.PHONY: bin-data
+bin-data:
+	./go-bindata -prefix $(IAAS_PATH) -pkg $(IAAS_LOCATION) -o $(IAAS_LOCATION)/$(IAAS_FILE) $(IAAS_PATH)
+
 test: test-all
 
 .PHONY: test-all

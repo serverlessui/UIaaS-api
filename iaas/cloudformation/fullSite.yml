@@ -16,13 +16,23 @@ Parameters:
   Environment:
     Type: String
     Description: Environment of hosted zone
+  FullDomainName:
+    Type: String
+    Description: The full domain name e.g. www.vssdevelopment.com
+    AllowedPattern: (?!-)[a-zA-Z0-9-.]{1,63}(?<!-)
+    ConstraintDescription: must be a valid DNS zone name.
+  HostedZone:
+    Type: String
+    Description: The DNS name of an existing Amazon Route 53 hosted zone e.g. vssdevelopment.com
+    AllowedPattern: (?!-)[a-zA-Z0-9-.]{1,63}(?<!-)
+    ConstraintDescription: must be a valid DNS zone name.
 
 Conditions:
   CreateHostedZone: !Equals [!Ref HostedZoneExists, false]
 Resources:
 #######################################
 ## Route53 HostedZone record in AWS
-## This is currently commented out since the VSSDevelopment hosted zone already exists
+##
 #######################################
   DNS:
     Type: AWS::Route53::HostedZone
@@ -36,11 +46,33 @@ Resources:
         Value: !Ref Environment
       - Key: APP
         Value: AMAZONIAN
+
   WebsiteCertificate:
     Type: AWS::CertificateManager::Certificate
     Properties:
       DomainName: 
         !Join [".", ["*", !Ref HostedZone]]
+        
+  WebsiteBucket:
+    Type: AWS::S3::Bucket
+    Properties:
+      BucketName: !Ref 'FullDomainName'
+      AccessControl: PublicRead
+      WebsiteConfiguration:
+        IndexDocument: index.html
+        ErrorDocument: 404.html
+
+  WebsiteBucketPolicy:
+    Type: AWS::S3::BucketPolicy
+    Properties:
+      Bucket: !Ref 'WebsiteBucket'
+      PolicyDocument:
+        Statement:
+        - Sid: PublicReadForGetBucketObjects
+          Effect: Allow
+          Principal: '*'
+          Action: s3:GetObject
+          Resource: !Join ['', ['arn:aws:s3:::', !Ref 'WebsiteBucket', /*]]
 Outputs:
   WebsiteCertficationArn:
     Value: !Ref 'WebsiteCertificate'
