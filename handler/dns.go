@@ -24,6 +24,7 @@ type DNSInput struct {
 	//todo- add type safety
 	HostedZoneExists string `json:"hostedZoneExists"`
 	Environment      string `json:"environment"`
+	FullDomainName   string `json:"fullDomainName"`
 }
 
 //HandleHostedZone handles Http requests

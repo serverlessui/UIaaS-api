@@ -21,11 +21,6 @@ Parameters:
     Description: The full domain name e.g. www.vssdevelopment.com
     AllowedPattern: (?!-)[a-zA-Z0-9-.]{1,63}(?<!-)
     ConstraintDescription: must be a valid DNS zone name.
-  HostedZone:
-    Type: String
-    Description: The DNS name of an existing Amazon Route 53 hosted zone e.g. vssdevelopment.com
-    AllowedPattern: (?!-)[a-zA-Z0-9-.]{1,63}(?<!-)
-    ConstraintDescription: must be a valid DNS zone name.
 
 Conditions:
   CreateHostedZone: !Equals [!Ref HostedZoneExists, false]

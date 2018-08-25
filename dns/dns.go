@@ -15,6 +15,7 @@ const (
 	hostedZoneExistsParam = "HostedZoneExists"
 	environmentParam      = "Environment"
 	websiteArnOutput      = "WebsiteCertArn"
+	fullDomainName        = "FullDomainName"
 )
 
 //FullSite is an implementation of the DNS interface
@@ -74,6 +75,7 @@ func createDNSInputParameters(input *handler.DNSInput) *map[string]string {
 	parameterMap[domainNameParam] = input.HostedZone
 	parameterMap[environmentParam] = input.Environment
 	parameterMap[hostedZoneExistsParam] = input.HostedZoneExists
+	parameterMap[fullDomainName] = input.FullDomainName
 
 	return &parameterMap
 
