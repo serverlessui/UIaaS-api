@@ -2,7 +2,6 @@ package dns
 
 import (
 	"log"
-	"strings"
 
 	"github.com/larse514/aws-cloudformation-go"
 	"github.com/serverlessui/UIaaS-api/handler"
@@ -28,16 +27,14 @@ type FullSite struct {
 }
 
 //DeployHostedZone Method to create fullSite hosted zone
-func (fullSite FullSite) DeployHostedZone(input *handler.DNSInput) (*handler.Route53Output, error) {
-	//replace domain name
-	stackName := getStackName(input)
+func (fullSite FullSite) DeployHostedZone(input *handler.DNSInput, stackName string) (*handler.Route53Output, error) {
 
 	//todo- i recommend refactoring this out of here
 	stack, err := fullSite.Resource.GetStack(&stackName)
 	if err != nil {
 		return nil, err
 	}
-	websiteOutputValue := input.Environment + "-" + websiteArnOutput
+	websiteOutputValue := input.Environment + "-" + input.ClientSiteName + "-" + websiteArnOutput
 	websiteURL := input.Environment + "-" + input.ClientSiteName + "-" + websiteURL
 
 	if *stack.StackName == "" {
@@ -62,12 +59,6 @@ func (fullSite FullSite) DeployHostedZone(input *handler.DNSInput) (*handler.Rou
 	log.Println("DNS Stack already exists")
 	return &handler.Route53Output{WebsiteArn: cf.GetOutputValue(stack, websiteOutputValue),
 		WebsiteBucketURL: cf.GetOutputValue(stack, websiteURL)}, nil
-}
-
-//Method to convert DomainName from input to stack name
-//fullSite does not allow for full stop (.) characters
-func getStackName(input *handler.DNSInput) string {
-	return strings.Replace(input.HostedZone, ".", "-", -1)
 }
 
 //Helper method to create []*cloudformation.Parameter from input

@@ -75,7 +75,7 @@ Outputs:
   WebsiteCertficationArn:
     Value: !Ref 'WebsiteCertificate'
     Export:
-      Name: !Join ["-", [!Ref Environment, WebsiteCertArn]]
+      Name: !Join ["-", [!Ref Environment,!Ref ClientSiteName, WebsiteCertArn]]
     Description: Certificate arn
   WebsiteBucketURL:
     Value: !GetAtt WebsiteBucket.WebsiteURL

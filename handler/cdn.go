@@ -19,6 +19,8 @@ type BucketInput struct {
 //HandleCDN method to handle Bucket creation
 func HandleCDN(request events.APIGatewayProxyRequest, action DeployAction) (events.APIGatewayProxyResponse, error) {
 	fmt.Println("Received body: ", request.Body)
+	stackName := request.PathParameters[siteNameParam]
+
 	var req BucketInput
 	err := json.Unmarshal([]byte(request.Body), &req)
 	if err != nil {
@@ -26,7 +28,7 @@ func HandleCDN(request events.APIGatewayProxyRequest, action DeployAction) (even
 
 		return events.APIGatewayProxyResponse{Body: "", StatusCode: 422}, nil
 	}
-	err = action.DeployBucket(&req)
+	err = action.DeployBucket(&req, stackName)
 	if err != nil {
 		fmt.Println("Error deploying bucket: ", err)
 

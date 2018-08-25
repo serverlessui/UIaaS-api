@@ -10,35 +10,35 @@ import (
 type mockBucket struct {
 }
 
-func (mock mockBucket) DeploySite(input *handler.BucketInput) error {
+func (mock mockBucket) DeploySite(input *handler.BucketInput, stackName string) error {
 	return nil
 }
 
 type mockBadBucket struct {
 }
 
-func (mock mockBadBucket) DeploySite(input *handler.BucketInput) error {
+func (mock mockBadBucket) DeploySite(input *handler.BucketInput, stackName string) error {
 	return errors.New("")
 }
 
 type mockDNS struct {
 }
 
-func (mock mockDNS) DeployHostedZone(input *handler.DNSInput) (*handler.Route53Output, error) {
+func (mock mockDNS) DeployHostedZone(input *handler.DNSInput, stackName string) (*handler.Route53Output, error) {
 	return &handler.Route53Output{WebsiteArn: "SOMEARN"}, nil
 }
 
 type mockBadDNS struct {
 }
 
-func (mock mockBadDNS) DeployHostedZone(input *handler.DNSInput) (*handler.Route53Output, error) {
+func (mock mockBadDNS) DeployHostedZone(input *handler.DNSInput, stackName string) (*handler.Route53Output, error) {
 	return nil, errors.New("")
 }
 
 func TestServerlessUIDeployBucketOk(t *testing.T) {
 	ui := ServerlessUI{mockDNS{}, mockBucket{}}
 
-	err := ui.DeployBucket(&handler.BucketInput{})
+	err := ui.DeployBucket(&handler.BucketInput{}, "")
 
 	if err != nil {
 		t.Log("error encountered when none expected ", err)
@@ -48,7 +48,7 @@ func TestServerlessUIDeployBucketOk(t *testing.T) {
 func TestServerlessUIDeployBucketReturnsError(t *testing.T) {
 	ui := ServerlessUI{mockDNS{}, mockBadBucket{}}
 
-	err := ui.DeployBucket(&handler.BucketInput{})
+	err := ui.DeployBucket(&handler.BucketInput{}, "")
 
 	if err == nil {
 		t.Log("error encountered one expected ")
@@ -59,7 +59,7 @@ func TestServerlessUIDeployBucketReturnsError(t *testing.T) {
 func TestServerlessUIDeployHostedZoneOk(t *testing.T) {
 	ui := ServerlessUI{mockDNS{}, mockBucket{}}
 
-	_, err := ui.DeployHostedZone(&handler.DNSInput{})
+	_, err := ui.DeployHostedZone(&handler.DNSInput{}, "")
 
 	if err != nil {
 		t.Log("error encountered when none expected ", err)
@@ -69,7 +69,7 @@ func TestServerlessUIDeployHostedZoneOk(t *testing.T) {
 func TestServerlessUIDeployHostedZoneReturnsError(t *testing.T) {
 	ui := ServerlessUI{mockBadDNS{}, mockBucket{}}
 
-	_, err := ui.DeployHostedZone(&handler.DNSInput{})
+	_, err := ui.DeployHostedZone(&handler.DNSInput{}, "")
 
 	if err == nil {
 		t.Log("error encountered one expected ")

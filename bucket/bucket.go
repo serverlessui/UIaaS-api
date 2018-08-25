@@ -2,7 +2,6 @@ package bucket
 
 import (
 	"log"
-	"strings"
 
 	"github.com/larse514/aws-cloudformation-go"
 	"github.com/serverlessui/UIaaS-api/handler"
@@ -26,9 +25,7 @@ type S3Bucket struct {
 }
 
 //DeploySite is a function to Create an S3 Site with CDN and ACM
-func (s3Bucket S3Bucket) DeploySite(input *handler.BucketInput) error {
-	stackName := getStackName(input)
-
+func (s3Bucket S3Bucket) DeploySite(input *handler.BucketInput, stackName string) error {
 	stack, err := s3Bucket.Resource.GetStack(&stackName)
 	if err != nil {
 		return err
@@ -52,12 +49,6 @@ func (s3Bucket S3Bucket) DeploySite(input *handler.BucketInput) error {
 	log.Println("S3 bucket already exists")
 	return nil
 
-}
-
-//Method to convert DomainName from input to stack name
-//fullSite does not allow for full stop (.) characters
-func getStackName(input *handler.BucketInput) string {
-	return strings.Replace(input.FullDomainName, ".", "-", -1)
 }
 
 //Helper method to create []*cloudformation.Parameter from input
