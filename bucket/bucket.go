@@ -15,6 +15,7 @@ const (
 	fullDomainNameParam = "FullDomainName"
 	acmCertARNParam     = "AcmCertificateArn"
 	ttlCacheValueParam  = "CacheValueTTL"
+	websiteURL          = "WebsiteBucketURL"
 )
 
 //S3Bucket is a struct to define needed S3 Bucket dependencies
@@ -70,6 +71,7 @@ func createInputParameters(input *handler.BucketInput) *map[string]string {
 	parameterMap[fullDomainNameParam] = input.FullDomainName
 	parameterMap[acmCertARNParam] = input.AcmCertificateArn
 	parameterMap[ttlCacheValueParam] = input.CacheValueTTL
+	parameterMap[websiteURL] = input.WebsiteURL
 
 	return &parameterMap
 

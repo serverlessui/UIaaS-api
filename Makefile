@@ -6,8 +6,8 @@ IAAS_LOCATION=iaas
 default: clean dependencies test build
 
 build:
-	env GOOS=linux go build -ldflags="-s -w" -o bin/dnshandler dnshandler/main.go
-	env GOOS=linux go build -ldflags="-s -w" -o bin/buckethandler buckethandler/main.go
+	env GOOS=linux go build -ldflags="-s -w" -o bin/sitehandler sitehandler/main.go
+	env GOOS=linux go build -ldflags="-s -w" -o bin/cdnhandler cdnhandler/main.go
 	env GOOS=linux go build -ldflags="-s -w" -o bin/stackhandler stackhandler/main.go
 
 .PHONY: dependencies

@@ -16,6 +16,9 @@ Parameters:
   Environment:
     Type: String
     Description: Environment of hosted zone
+  ClientSiteName:
+    Type: String
+    Description: Name of client 
   FullDomainName:
     Type: String
     Description: The full domain name e.g. www.vssdevelopment.com
@@ -74,3 +77,8 @@ Outputs:
     Export:
       Name: !Join ["-", [!Ref Environment, WebsiteCertArn]]
     Description: Certificate arn
+  WebsiteBucketURL:
+    Value: !GetAtt WebsiteBucket.WebsiteURL
+    Export:
+      Name: !Join ["-", [!Ref Environment, !Ref ClientSiteName, WebsiteURL]]
+    Description: WebsiteBucketURL

@@ -16,6 +16,8 @@ const (
 	environmentParam      = "Environment"
 	websiteArnOutput      = "WebsiteCertArn"
 	fullDomainName        = "FullDomainName"
+	clientSiteName        = "ClientSiteName"
+	websiteURL            = "WebsiteURL"
 )
 
 //FullSite is an implementation of the DNS interface
@@ -36,6 +38,8 @@ func (fullSite FullSite) DeployHostedZone(input *handler.DNSInput) (*handler.Rou
 		return nil, err
 	}
 	websiteOutputValue := input.Environment + "-" + websiteArnOutput
+	websiteURL := input.Environment + "-" + input.ClientSiteName + "-" + websiteURL
+
 	if *stack.StackName == "" {
 
 		log.Println("Creating new dns stack")
@@ -56,7 +60,8 @@ func (fullSite FullSite) DeployHostedZone(input *handler.DNSInput) (*handler.Rou
 	}
 
 	log.Println("DNS Stack already exists")
-	return &handler.Route53Output{WebsiteArn: cf.GetOutputValue(stack, websiteOutputValue)}, nil
+	return &handler.Route53Output{WebsiteArn: cf.GetOutputValue(stack, websiteOutputValue),
+		WebsiteBucketURL: cf.GetOutputValue(stack, websiteURL)}, nil
 }
 
 //Method to convert DomainName from input to stack name
@@ -76,6 +81,7 @@ func createDNSInputParameters(input *handler.DNSInput) *map[string]string {
 	parameterMap[environmentParam] = input.Environment
 	parameterMap[hostedZoneExistsParam] = input.HostedZoneExists
 	parameterMap[fullDomainName] = input.FullDomainName
+	parameterMap[clientSiteName] = input.ClientSiteName
 
 	return &parameterMap
 

@@ -13,10 +13,11 @@ type BucketInput struct {
 	FullDomainName    string `json:"fullDomainName"`
 	AcmCertificateArn string `json:"acmCertificateArn"`
 	CacheValueTTL     string `json:"cacheValueTTL"`
+	WebsiteURL        string `json:"websiteURL"`
 }
 
-//HandleBucket method to handle Bucket creation
-func HandleBucket(request events.APIGatewayProxyRequest, action DeployAction) (events.APIGatewayProxyResponse, error) {
+//HandleCDN method to handle Bucket creation
+func HandleCDN(request events.APIGatewayProxyRequest, action DeployAction) (events.APIGatewayProxyResponse, error) {
 	fmt.Println("Received body: ", request.Body)
 	var req BucketInput
 	err := json.Unmarshal([]byte(request.Body), &req)

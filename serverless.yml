@@ -54,10 +54,10 @@ package:
 
 functions:
   bucket:
-    handler: bin/buckethandler
+    handler: bin/cdnhandler
     events:
       - http:
-          path: buckets
+          path: cdns
           method: post
   getstack:
     handler: bin/stackhandler
@@ -66,10 +66,10 @@ functions:
           path: stacks/{stackname}
           method: get
   dns:
-    handler: bin/dnshandler
+    handler: bin/sitehandler
     events:
       - http:
-          path: hostedzones
+          path: sites
           method: post
 #    The following are a few example events you can configure
 #    NOTE: Please make sure to change your handler code to work with those events

@@ -7,12 +7,12 @@ import (
 	"github.com/serverlessui/UIaaS-api/handler"
 )
 
-//DeployHostedZone is the entry point to the Lambda function
-func DeployHostedZone(request events.APIGatewayProxyRequest) (events.APIGatewayProxyResponse, error) {
+//DeployCDNHandler is the entry point to the Lambda function
+func DeployCDNHandler(request events.APIGatewayProxyRequest) (events.APIGatewayProxyResponse, error) {
 	action := config.CreateDeployAction()
-	return handler.HandleHostedZone(request, action)
+	return handler.HandleCDN(request, action)
 }
 
 func main() {
-	lambda.Start(DeployHostedZone)
+	lambda.Start(DeployCDNHandler)
 }

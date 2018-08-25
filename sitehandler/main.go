@@ -7,12 +7,12 @@ import (
 	"github.com/serverlessui/UIaaS-api/handler"
 )
 
-//DeployBucketHandler is the entry point to the Lambda function
-func DeployBucketHandler(request events.APIGatewayProxyRequest) (events.APIGatewayProxyResponse, error) {
+//DeploySite is the entry point to the Lambda function
+func DeploySite(request events.APIGatewayProxyRequest) (events.APIGatewayProxyResponse, error) {
 	action := config.CreateDeployAction()
-	return handler.HandleBucket(request, action)
+	return handler.HandleSite(request, action)
 }
 
 func main() {
-	lambda.Start(DeployBucketHandler)
+	lambda.Start(DeploySite)
 }

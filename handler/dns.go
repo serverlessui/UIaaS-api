@@ -15,7 +15,8 @@ type DeployAction interface {
 
 //Route53Output struct containing output from FullSite
 type Route53Output struct {
-	WebsiteArn string
+	WebsiteArn       string
+	WebsiteBucketURL string
 }
 
 //DNSInput is a struct representing the required parameters to pass for HostedZoneCreation creation
@@ -25,10 +26,11 @@ type DNSInput struct {
 	HostedZoneExists string `json:"hostedZoneExists"`
 	Environment      string `json:"environment"`
 	FullDomainName   string `json:"fullDomainName"`
+	ClientSiteName   string `json:"clientSiteName"`
 }
 
-//HandleHostedZone handles Http requests
-func HandleHostedZone(request events.APIGatewayProxyRequest, action DeployAction) (events.APIGatewayProxyResponse, error) {
+//HandleSite handles Http requests
+func HandleSite(request events.APIGatewayProxyRequest, action DeployAction) (events.APIGatewayProxyResponse, error) {
 	fmt.Println("Received body: ", request.Body)
 	var req DNSInput
 	err := json.Unmarshal([]byte(request.Body), &req)
