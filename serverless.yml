@@ -65,6 +65,12 @@ functions:
       - http:
           path: stacks/{stackname}
           method: get
+  getstats:
+    handler: bin/statisticshandler
+    events:
+      - http:
+          path: statistics
+          method: get
   dns:
     handler: bin/sitehandler
     events:

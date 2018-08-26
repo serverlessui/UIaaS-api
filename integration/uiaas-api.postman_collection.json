@@ -1,0 +1,96 @@
+{
+	"id": "4661a6c4-5c8a-ed8f-8a38-6b98d1b0f33c",
+	"name": "uiaas-api",
+	"description": "",
+	"order": [
+		"4217a239-4f26-7ac6-96c0-07bc8444eb2f",
+		"331e5ebb-1189-e155-8010-9debda3b0e2f"
+	],
+	"folders": [],
+	"folders_order": [],
+	"timestamp": 1535321996291,
+	"owner": "837563",
+	"public": false,
+	"events": [],
+	"variables": [],
+	"auth": null,
+	"requests": [
+		{
+			"id": "331e5ebb-1189-e155-8010-9debda3b0e2f",
+			"headers": "",
+			"headerData": [],
+			"url": "https://6456l3jgrl.execute-api.us-east-1.amazonaws.com/dev/stacks/vssdevelopment-com",
+			"queryParams": [],
+			"events": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "c0c472ff-de80-4fee-8477-841aeafe619f",
+						"type": "text/javascript",
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});"
+						]
+					}
+				}
+			],
+			"pathVariables": {},
+			"pathVariableData": [],
+			"method": "GET",
+			"data": null,
+			"dataMode": "params",
+			"auth": null,
+			"time": 1535322078029,
+			"name": "GET stack",
+			"description": "",
+			"collectionId": "4661a6c4-5c8a-ed8f-8a38-6b98d1b0f33c",
+			"responses": [],
+			"preRequestScript": null,
+			"tests": "pm.test(\"Status code is 200\", function () {\n    pm.response.to.have.status(200);\n});",
+			"currentHelper": null,
+			"helperAttributes": null
+		},
+		{
+			"id": "4217a239-4f26-7ac6-96c0-07bc8444eb2f",
+			"headers": "",
+			"headerData": [],
+			"url": "https://6456l3jgrl.execute-api.us-east-1.amazonaws.com/dev/statistics",
+			"queryParams": [],
+			"events": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "cba732da-26ec-4736-b602-6504e763d6f8",
+						"type": "text/javascript",
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});",
+							"",
+							"pm.test(\"total is 10000000\", function () {",
+							"    var jsonData = pm.response.json();",
+							"    pm.expect(jsonData.total).to.eql(10000000);",
+							"});"
+						]
+					}
+				}
+			],
+			"pathVariables": {},
+			"pathVariableData": [],
+			"method": "GET",
+			"data": null,
+			"dataMode": "params",
+			"auth": null,
+			"time": 1535322047185,
+			"name": "GET statistics",
+			"description": "",
+			"collectionId": "4661a6c4-5c8a-ed8f-8a38-6b98d1b0f33c",
+			"responses": [],
+			"preRequestScript": null,
+			"tests": "pm.test(\"Status code is 200\", function () {\n    pm.response.to.have.status(200);\n});\n\npm.test(\"total is 10000000\", function () {\n    var jsonData = pm.response.json();\n    pm.expect(jsonData.total).to.eql(10000000);\n});",
+			"currentHelper": null,
+			"helperAttributes": null
+		}
+	]
+}

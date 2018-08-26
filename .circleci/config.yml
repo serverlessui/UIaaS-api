@@ -1,0 +1,37 @@
+version: 2
+jobs:
+  build:
+    working_directory: /go/src/github.com/serverlessui/UIaaS-api
+    docker:
+      - image: larse514/circleci-golang:latest
+    environment:
+      TEST_RESULTS: /tmp/test-results
+      TABLE_NAME: DispatchSources
+    steps:
+    - checkout
+    - run: mkdir -p $TEST_RESULTS
+    - restore_cache:
+        keys:
+          - v1-pkg-cache
+    - run: 
+        name: Configure AWS environment
+        command: |
+          aws configure set default.region us-east-1
+          aws configure set default.output json
+    - run: make
+    - run: make deploy
+    - run: 
+        name: Integration tests
+        command: |
+          cd integration && newman run uiaas-api.postman_collection.json
+    - save_cache:
+        key: v1-pkg-cache
+        paths:
+          - "/go/pkg"
+
+    - store_artifacts:
+        path: /tmp/test-results
+        destination: raw-test-output
+
+    - store_test_results:
+        path: /tmp/test-results

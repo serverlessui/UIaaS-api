@@ -9,6 +9,7 @@ build:
 	env GOOS=linux go build -ldflags="-s -w" -o bin/sitehandler sitehandler/main.go
 	env GOOS=linux go build -ldflags="-s -w" -o bin/cdnhandler cdnhandler/main.go
 	env GOOS=linux go build -ldflags="-s -w" -o bin/stackhandler stackhandler/main.go
+	env GOOS=linux go build -ldflags="-s -w" -o bin/statisticshandler statisticshandler/main.go
 
 .PHONY: dependencies
 dependencies: bin-data

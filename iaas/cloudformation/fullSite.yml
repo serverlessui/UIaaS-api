@@ -59,6 +59,15 @@ Resources:
       WebsiteConfiguration:
         IndexDocument: index.html
         ErrorDocument: 404.html
+        
+  AccessLogBucket:
+    Type: AWS::S3::Bucket
+    Properties:
+      BucketName: !Sub log.${FullDomainName}
+      AccessControl: PublicRead
+      WebsiteConfiguration:
+        IndexDocument: index.html
+        ErrorDocument: 404.html
 
   WebsiteBucketPolicy:
     Type: AWS::S3::BucketPolicy

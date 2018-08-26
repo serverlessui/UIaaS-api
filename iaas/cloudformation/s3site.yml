@@ -72,6 +72,9 @@ Resources:
         DefaultRootObject: index.html
         Aliases:
         - !Ref 'FullDomainName'
+        Logging:
+          Bucket: !Sub log.${FullDomainName}
+          Prefix: access
         DefaultCacheBehavior:
           AllowedMethods:
           - GET
