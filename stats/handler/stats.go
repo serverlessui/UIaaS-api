@@ -1,10 +1,9 @@
-package main
+package handler
 
 import (
 	"encoding/json"
 
 	"github.com/aws/aws-lambda-go/events"
-	"github.com/aws/aws-lambda-go/lambda"
 )
 
 //Visit is a struct representing visit statistical data
@@ -16,8 +15,8 @@ type Visit struct {
 	VisitsByCountry map[string]float64 `json:"visitsByCountry"`
 }
 
-//GetStatistics is the entry point to the Lambda function
-func GetStatistics(request events.APIGatewayProxyRequest) (events.APIGatewayProxyResponse, error) {
+//HandleGetStats method to handle get stats request
+func HandleGetStats(request events.APIGatewayProxyRequest) (events.APIGatewayProxyResponse, error) {
 	visit := &Visit{
 		Total:         10000000,
 		TotalLastWeek: 10000,
@@ -30,8 +29,4 @@ func GetStatistics(request events.APIGatewayProxyRequest) (events.APIGatewayProx
 	responseString := string(resp)
 
 	return events.APIGatewayProxyResponse{Body: responseString, StatusCode: 200}, nil
-}
-
-func main() {
-	lambda.Start(GetStatistics)
 }

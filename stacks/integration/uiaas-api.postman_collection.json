@@ -55,7 +55,7 @@
 			"id": "4217a239-4f26-7ac6-96c0-07bc8444eb2f",
 			"headers": "",
 			"headerData": [],
-			"url": "https://6456l3jgrl.execute-api.us-east-1.amazonaws.com/dev/statistics",
+			"url": "https://hrysikhhl7.execute-api.us-east-1.amazonaws.com/dev/statistics",
 			"queryParams": [],
 			"events": [
 				{
@@ -82,7 +82,7 @@
 			"data": null,
 			"dataMode": "params",
 			"auth": null,
-			"time": 1535322047185,
+			"time": 1535339216553,
 			"name": "GET statistics",
 			"description": "",
 			"collectionId": "4661a6c4-5c8a-ed8f-8a38-6b98d1b0f33c",

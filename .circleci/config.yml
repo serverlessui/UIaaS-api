@@ -18,12 +18,12 @@ jobs:
         command: |
           aws configure set default.region us-east-1
           aws configure set default.output json
-    - run: make
-    - run: make deploy
+    - run: cd stacks && make
+    - run: cd stacks && make deploy
     - run: 
         name: Integration tests
         command: |
-          cd integration && newman run uiaas-api.postman_collection.json
+          cd stacks/integration && newman run uiaas-api.postman_collection.json
     - save_cache:
         key: v1-pkg-cache
         paths:

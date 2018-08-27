@@ -11,7 +11,7 @@
 #
 # Happy Coding!
 
-service: uiaas-api # NOTE: update this with your service name
+service: uiaas-api-accounts # NOTE: update this with your service name
 
 # You can pin your service to only deploy with a specific Serverless version
 # Check out our docs for more details
@@ -53,29 +53,18 @@ package:
    - ./bin/**
 
 functions:
-  bucket:
-    handler: bin/cdnhandler
+  getaccount:
+    handler: bin/gethandler
     events:
       - http:
-          path: sites/{sitename}/cdns
-          method: post
-  getstack:
-    handler: bin/stackhandler
-    events:
-      - http:
-          path: stacks/{stackname}
+          path: accounts/{aid}
           method: get
-  getstats:
-    handler: bin/statisticshandler
+          
+  postaccount:
+    handler: bin/posthandler
     events:
       - http:
-          path: statistics
-          method: get
-  dns:
-    handler: bin/sitehandler
-    events:
-      - http:
-          path: sites/{sitename}
+          path: accounts
           method: post
 #    The following are a few example events you can configure
 #    NOTE: Please make sure to change your handler code to work with those events

@@ -7,3 +7,5 @@ This application was scaffolded using [serverless template](https://serverless.c
 
 #Todo-
 1. try and fix bin-data
+2. Update IAM policy to least privilege 
+3. Handler error bodies
