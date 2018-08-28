@@ -8,11 +8,11 @@ import (
 	"github.com/aws/aws-sdk-go/aws/session"
 	"github.com/aws/aws-sdk-go/service/cloudformation"
 	"github.com/larse514/aws-cloudformation-go"
-	"github.com/serverlessui/UIaaS-api/actions"
-	"github.com/serverlessui/UIaaS-api/bucket"
-	"github.com/serverlessui/UIaaS-api/dns"
-	"github.com/serverlessui/UIaaS-api/handler"
-	"github.com/serverlessui/UIaaS-api/iaas"
+	"github.com/serverlessui/UIaaS-api/stacks/actions"
+	"github.com/serverlessui/UIaaS-api/stacks/bucket"
+	"github.com/serverlessui/UIaaS-api/stacks/dns"
+	"github.com/serverlessui/UIaaS-api/stacks/handler"
+	"github.com/serverlessui/UIaaS-api/stacks/iaas"
 )
 
 //todo- refactor this to cache when retrieving dependency

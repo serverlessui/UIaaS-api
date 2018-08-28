@@ -18,8 +18,7 @@ jobs:
         command: |
           aws configure set default.region us-east-1
           aws configure set default.output json
-    - run: cd stacks && make
-    - run: cd stacks && make deploy
+    - run: ./build && ./release dev
     - run: 
         name: Integration tests
         command: |

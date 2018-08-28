@@ -4,7 +4,7 @@ import (
 	"errors"
 	"testing"
 
-	"github.com/serverlessui/UIaaS-api/handler"
+	"github.com/serverlessui/UIaaS-api/stacks/handler"
 )
 
 type mockBucket struct {

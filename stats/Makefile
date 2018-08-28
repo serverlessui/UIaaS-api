@@ -17,7 +17,7 @@ clean:
 
 .PHONY: deploy 
 deploy: 
-	sls deploy --verbose
+	sls deploy --verbose -s $(ENVIRONMENT)
 
 test: test-all
 

@@ -3,7 +3,7 @@ package actions
 import (
 	"log"
 
-	"github.com/serverlessui/UIaaS-api/handler"
+	"github.com/serverlessui/UIaaS-api/stacks/handler"
 )
 
 //Bucket is an interface to define creation of Bucket based sites

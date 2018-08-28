@@ -4,8 +4,8 @@ import (
 	"log"
 
 	"github.com/larse514/aws-cloudformation-go"
-	"github.com/serverlessui/UIaaS-api/handler"
-	"github.com/serverlessui/UIaaS-api/iaas"
+	"github.com/serverlessui/UIaaS-api/stacks/handler"
+	"github.com/serverlessui/UIaaS-api/stacks/iaas"
 )
 
 const (

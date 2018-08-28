@@ -3,8 +3,8 @@ package main
 import (
 	"github.com/aws/aws-lambda-go/events"
 	"github.com/aws/aws-lambda-go/lambda"
-	"github.com/serverlessui/UIaaS-api/config"
-	"github.com/serverlessui/UIaaS-api/handler"
+	"github.com/serverlessui/UIaaS-api/stacks/config"
+	"github.com/serverlessui/UIaaS-api/stacks/handler"
 )
 
 //DeploySite is the entry point to the Lambda function
