@@ -18,7 +18,7 @@ jobs:
         command: |
           aws configure set default.region us-east-1
           aws configure set default.output json
-    - run: ./build && ./release dev
+    - run: ./build.sh && ./release.sh dev
     - run: 
         name: Integration tests
         command: |
