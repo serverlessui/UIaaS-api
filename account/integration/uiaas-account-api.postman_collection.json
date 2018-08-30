@@ -27,7 +27,7 @@
 					"enabled": true
 				}
 			],
-			"url": "{{URL}}/dev/accounts",
+			"url": "{{URL}}/accounts",
 			"queryParams": [],
 			"events": [
 				{
@@ -68,7 +68,7 @@
 			"data": [],
 			"dataMode": "raw",
 			"auth": null,
-			"time": 1535604566228,
+			"time": 1535605261406,
 			"name": "POST account",
 			"description": "",
 			"collectionId": "237d7f74-8cc6-78ed-9588-b6fa28a6464b",
@@ -90,7 +90,7 @@
 					"enabled": true
 				}
 			],
-			"url": "{{URL}}/dev/accounts/{{ACCOUNTID}}",
+			"url": "{{URL}}/accounts/{{ACCOUNTID}}",
 			"queryParams": [],
 			"events": [
 				{
@@ -124,7 +124,7 @@
 			"data": [],
 			"dataMode": "raw",
 			"auth": null,
-			"time": 1535604531389,
+			"time": 1535605264222,
 			"name": "POST account copy",
 			"description": "",
 			"collectionId": "237d7f74-8cc6-78ed-9588-b6fa28a6464b",
