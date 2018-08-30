@@ -49,9 +49,9 @@ func (repo DynamoAccountRepository) CreateAccount(account *handler.Account) (*ha
 func (repo DynamoAccountRepository) GetAccount(accoundID string) (*handler.Account, error) {
 	var queryInput = &dynamodb.QueryInput{
 		TableName: aws.String(repo.TableName),
-		IndexName: aws.String("id"),
+		IndexName: aws.String("AccountID"),
 		KeyConditions: map[string]*dynamodb.Condition{
-			"id": {
+			"AccountID": {
 				ComparisonOperator: aws.String("EQ"),
 				AttributeValueList: []*dynamodb.AttributeValue{
 					{

@@ -9,13 +9,12 @@ import (
 
 //Account struct
 type Account struct {
-	AccountID   string
-	Name        string
-	Email       string
-	PhoneNumber string
-	CompanyName string
-	Address     string
-	UserName    string
+	AccountID   string `json:"accountID"`
+	Name        string `json:"name"`
+	Email       string `json:"email"`
+	PhoneNumber string `json:"phoneNumber"`
+	CompanyName string `json:"companyName"`
+	UserName    string `json:"userName"`
 }
 
 //AccountRepository interface defining methods to interact with Account entity

@@ -9,7 +9,7 @@ import (
 
 const (
 	responseAccountID         = "ACCOUNTID"
-	createAccountResponseBody = "{\"AccountID\":\"ACCOUNTID\",\"Name\":\"\",\"Email\":\"\",\"PhoneNumber\":\"\",\"CompanyName\":\"\",\"Address\":\"\",\"UserName\":\"\"}"
+	createAccountResponseBody = "{\"accountID\":\"ACCOUNTID\",\"name\":\"\",\"email\":\"\",\"phoneNumber\":\"\",\"companyName\":\"\",\"userName\":\"\"}"
 )
 
 func TestCreateAccountReturnsAccountPostHandlerReturns201(t *testing.T) {
