@@ -6,10 +6,11 @@ COLLECTION=$1
 ENVIRONMENT=$2
 
 accountIntegration () {
-  cd account && make integ STACK=$STACK COLLECTION="$COLLECTION-$ENVIRONMENT" 
+  cd account && ./setup.sh "$STACK-$ENVIRONMENT" "$COLLECTION-$ENVIRONMENT" 
 }
 
 integrationTests() {
     accountIntegration
-
 }
+
+integrationTests

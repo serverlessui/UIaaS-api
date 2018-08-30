@@ -34,6 +34,7 @@ test-all:
 test-min:
 	@go test ./...
 
+.PHONY: integ
 integ: 
 	./setup.sh $(STACK_NAME) $(COLLECTION) &&
 	./run.sh $(COLLECTION)

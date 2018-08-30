@@ -11,9 +11,14 @@ import (
 	"github.com/serverlessui/UIaaS-api/account/repository"
 )
 
+const (
+	tableName = "DYNAMODB_TABLE"
+)
+
 //CreateRepository is a method to instantiate an AccountRepository implementation
 func CreateRepository() handler.AccountRepository {
-	return repository.DynamoAccountRepository{Svc: createDynamoDB()}
+	tableName := os.Getenv(tableName)
+	return repository.DynamoAccountRepository{Svc: createDynamoDB(), TableName: tableName}
 }
 
 func createDynamoDB() *dynamodb.DynamoDB {

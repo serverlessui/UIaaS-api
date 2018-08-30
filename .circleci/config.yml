@@ -18,11 +18,18 @@ jobs:
         command: |
           aws configure set default.region us-east-1
           aws configure set default.output json
-    - run: ./build.sh && ./release.sh dev && ./integration.sh uiaas-account-api.postman_collection.json dev
+    - run: ./build.sh && ./release.sh dev 
     - run: 
         name: Integration tests
         command: |
           cd stacks/integration && newman run uiaas-api.postman_collection.json
+
+    ##todo-refactor this
+    - run: 
+        name: Integration tests v2
+        command: |
+          cd account/integration && ./setup.sh  uiaas-api-accounts-dev uiaas-account-api.postman_collection.json &&
+           ./run.sh uiaas-account-api.postman_collection.json
     - save_cache:
         key: v1-pkg-cache
         paths:

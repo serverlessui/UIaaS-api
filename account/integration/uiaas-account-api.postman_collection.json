@@ -27,8 +27,6 @@
 			],
 			"url": "{{URL}}/accounts",
 			"queryParams": [],
-			"pathVariables": {},
-			"pathVariableData": [],
 			"events": [
 				{
 					"listen": "prerequest",
@@ -39,21 +37,33 @@
 							""
 						]
 					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"id": "8498599a-6533-401a-8f26-c1f787ec262c",
+						"type": "text/javascript",
+						"exec": [
+							"pm.test(\"Status code is 201\", function () {",
+							"    pm.response.to.have.status(201);",
+							"});"
+						]
+					}
 				}
 			],
-			"auth": null,
+			"pathVariables": {},
+			"pathVariableData": [],
 			"method": "POST",
-			"collectionId": "237d7f74-8cc6-78ed-9588-b6fa28a6464b",
 			"data": [],
 			"dataMode": "raw",
+			"auth": null,
+			"time": 1535597747624,
 			"name": "POST account",
 			"description": "",
-			"descriptionFormat": "html",
-			"time": 1535595516649,
-			"version": 2,
+			"collectionId": "237d7f74-8cc6-78ed-9588-b6fa28a6464b",
 			"responses": [],
 			"preRequestScript": null,
-			"tests": null,
+			"tests": "pm.test(\"Status code is 201\", function () {\n    pm.response.to.have.status(201);\n});",
 			"currentHelper": null,
 			"helperAttributes": null,
 			"rawModeData": "{\n\t\n\t\"name\":        \"SOMENAME\",\n\t\"email\":       \"email@email.com\",\n\t\"phoneNumber\": \"3145019999\",\n\t\"companyName\": \"Some company\",\n\t\"address\":     \"123 fake st\",\n\t\"userName\":    \"User Name\"\n}"

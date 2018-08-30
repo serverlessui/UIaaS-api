@@ -11,7 +11,7 @@ MACOS="Mac"
 
 NEWURL=`aws cloudformation describe-stacks \
             --stack-name $STACK \
-            --query "Stacks[0].Outputs[0].{OutputValue:OutputValue}" \
+            --query "Stacks[0].[Outputs[? starts_with(OutputKey, 'ServiceEndpoint')]][0][*].{OutputValue:OutputValue}" \
             --output text`
 
 echo $NEWURL
