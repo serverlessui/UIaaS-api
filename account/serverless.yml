@@ -11,7 +11,7 @@
 #
 # Happy Coding!
 
-service: uiaas-api-accounts # NOTE: update this with your service name
+service: uiaas-api-account # NOTE: update this with your service name
 
 # You can pin your service to only deploy with a specific Serverless version
 # Check out our docs for more details
@@ -107,14 +107,14 @@ resources:
       Properties:
         AttributeDefinitions:
           -
-            AttributeName: "Email"
+            AttributeName: "email"
             AttributeType: "S"
           -
-            AttributeName: "AccountID"
+            AttributeName: "accountID"
             AttributeType: "S"
         KeySchema:
           -
-            AttributeName: "AccountID"
+            AttributeName: "accountID"
             KeyType: "HASH"
         ProvisionedThroughput:
             ReadCapacityUnits: 1
@@ -124,7 +124,7 @@ resources:
             IndexName: "email-index"
             KeySchema:
               -
-                AttributeName: "Email"
+                AttributeName: "email"
                 KeyType: "HASH"
             Projection:
               ProjectionType: "ALL"

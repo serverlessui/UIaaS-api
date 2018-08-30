@@ -1,7 +1,7 @@
 #!/bin/bash
 
 ##define inputs
-STACK="uiaas-api-accounts"
+STACK="uiaas-api-account"
 COLLECTION=$1
 ENVIRONMENT=$2
 
