@@ -1,7 +1,5 @@
 #!/bin/bash
 
-#!/bin/bash
-
 ENVIRONMENT=$1
 
 deployStacks () {

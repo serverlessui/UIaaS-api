@@ -1,15 +1,38 @@
 package handler
 
 import (
-	"encoding/json"
+	"errors"
+	"net/http"
 	"testing"
 
 	"github.com/aws/aws-lambda-go/events"
 )
 
-func TestGetAccountStatusOK(t *testing.T) {
+type mockGoodAccountRepository struct {
+}
+type mockBadAccountRepository struct {
+}
+
+func (mock mockGoodAccountRepository) CreateAccount(account *Account) (*Account, error) {
+	return &Account{AccountID: responseAccountID}, nil
+}
+func (mock mockGoodAccountRepository) GetAccount(accoundID string) (*Account, error) {
+	return &Account{}, nil
+
+}
+
+func (mock mockBadAccountRepository) CreateAccount(account *Account) (*Account, error) {
+	return &Account{}, errors.New("ERROR")
+
+}
+func (mock mockBadAccountRepository) GetAccount(accoundID string) (*Account, error) {
+	return &Account{}, errors.New("ERROR")
+
+}
+func TestGetAccountStatusReturnsOK(t *testing.T) {
 	request := events.APIGatewayProxyRequest{}
-	resp, err := GetAccount(request)
+	mock := mockGoodAccountRepository{}
+	resp, err := GetAccount(request, mock)
 
 	if err != nil {
 		t.Log("Encountered error when none was expected ", err)
@@ -24,24 +47,18 @@ func TestGetAccountStatusOK(t *testing.T) {
 		t.Fail()
 	}
 }
-func TestGetAccountStatusAccountIDPassedInIsReturned(t *testing.T) {
-	expected := "ACCOUNTID"
-	pathParameterMap := make(map[string]string)
-	pathParameterMap[accountIDParam] = expected
-	request := events.APIGatewayProxyRequest{PathParameters: pathParameterMap}
-	resp, err := GetAccount(request)
+func TestGetAccountRepoReturnsErrorGetHandlerReturns503(t *testing.T) {
+	request := events.APIGatewayProxyRequest{}
+	mock := mockBadAccountRepository{}
+	resp, err := GetAccount(request, mock)
 
 	if err != nil {
 		t.Log("Encountered error when none was expected ", err)
 		t.Fail()
 	}
-	var account Account
-	err = json.Unmarshal([]byte(resp.Body), &account)
-	if err != nil {
-		t.Log("Encountered error when none was expected ", err)
-		t.Fail()
-	}
-	actual := account.AccountID
+
+	actual := resp.StatusCode
+	expected := http.StatusServiceUnavailable
 
 	if expected != actual {
 		t.Log("expected ", expected, " got ", actual)

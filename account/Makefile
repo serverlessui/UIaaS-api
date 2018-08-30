@@ -8,7 +8,7 @@ build:
 
 .PHONY: dependencies
 dependencies:
-	sudo npm install -g serverless
+	# sudo npm install -g serverless
 	@go get github.com/tools/godep
 	dep ensure -v
 
@@ -20,6 +20,10 @@ clean:
 deploy: 
 	sls deploy --verbose -s $(ENVIRONMENT)
 
+.PHONY: delete 
+delete: 
+	sls remove --verbose -s $(ENVIRONMENT)
+
 test: test-all
 
 .PHONY: test-all
@@ -29,3 +33,7 @@ test-all:
 .PHONY: test-min
 test-min:
 	@go test ./...
+
+integ: 
+	./setup.sh $(STACK_NAME) $(COLLECTION) &&
+	./run.sh $(COLLECTION)

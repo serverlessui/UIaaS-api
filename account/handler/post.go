@@ -1,6 +1,7 @@
 package handler
 
 import (
+	"encoding/json"
 	"net/http"
 
 	"github.com/aws/aws-lambda-go/events"
@@ -8,12 +9,36 @@ import (
 
 //Account struct
 type Account struct {
-	AccountID string
-	Name      string
+	AccountID   string
+	Name        string
+	Email       string
+	PhoneNumber string
+	CompanyName string
+	Address     string
+	UserName    string
+}
+
+//AccountRepository interface defining methods to interact with Account entity
+type AccountRepository interface {
+	CreateAccount(account *Account) (*Account, error)
+	GetAccount(accoundID string) (*Account, error)
 }
 
 //CreateAccount method to handle account creation requests
-func CreateAccount(request events.APIGatewayProxyRequest) (events.APIGatewayProxyResponse, error) {
+func CreateAccount(request events.APIGatewayProxyRequest, repository AccountRepository) (events.APIGatewayProxyResponse, error) {
+	var account Account
+	err := json.Unmarshal([]byte(request.Body), &account)
+	returnedAccout, err := repository.CreateAccount(&account)
 
-	return events.APIGatewayProxyResponse{Body: "", StatusCode: http.StatusCreated}, nil
+	if err != nil {
+		return events.APIGatewayProxyResponse{Body: "", StatusCode: http.StatusServiceUnavailable}, nil
+	}
+
+	resp, err := MarshallAccountStructToString(returnedAccout)
+
+	if err != nil {
+		return events.APIGatewayProxyResponse{Body: "", StatusCode: http.StatusInternalServerError}, nil
+	}
+
+	return events.APIGatewayProxyResponse{Body: string(resp), StatusCode: http.StatusCreated}, nil
 }

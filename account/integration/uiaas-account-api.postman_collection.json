@@ -1,0 +1,62 @@
+{
+	"id": "237d7f74-8cc6-78ed-9588-b6fa28a6464b",
+	"name": "uiaas-account-api",
+	"description": "",
+	"order": [
+		"3bcd2cab-af29-beb0-db65-f4f63ceef839"
+	],
+	"folders": [],
+	"folders_order": [],
+	"timestamp": 1535595500335,
+	"owner": "837563",
+	"public": false,
+	"events": [],
+	"variables": [],
+	"auth": null,
+	"requests": [
+		{
+			"id": "3bcd2cab-af29-beb0-db65-f4f63ceef839",
+			"headers": "Content-Type: application/json\n",
+			"headerData": [
+				{
+					"key": "Content-Type",
+					"value": "application/json",
+					"description": "",
+					"enabled": true
+				}
+			],
+			"url": "{{URL}}/accounts",
+			"queryParams": [],
+			"pathVariables": {},
+			"pathVariableData": [],
+			"events": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"id": "a30a5630-8923-4cf4-b9fe-816ec71a7116",
+						"type": "text/javascript",
+						"exec": [
+							""
+						]
+					}
+				}
+			],
+			"auth": null,
+			"method": "POST",
+			"collectionId": "237d7f74-8cc6-78ed-9588-b6fa28a6464b",
+			"data": [],
+			"dataMode": "raw",
+			"name": "POST account",
+			"description": "",
+			"descriptionFormat": "html",
+			"time": 1535595516649,
+			"version": 2,
+			"responses": [],
+			"preRequestScript": null,
+			"tests": null,
+			"currentHelper": null,
+			"helperAttributes": null,
+			"rawModeData": "{\n\t\n\t\"name\":        \"SOMENAME\",\n\t\"email\":       \"email@email.com\",\n\t\"phoneNumber\": \"3145019999\",\n\t\"companyName\": \"Some company\",\n\t\"address\":     \"123 fake st\",\n\t\"userName\":    \"User Name\"\n}"
+		}
+	]
+}

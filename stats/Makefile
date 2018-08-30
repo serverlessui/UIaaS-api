@@ -19,6 +19,10 @@ clean:
 deploy: 
 	sls deploy --verbose -s $(ENVIRONMENT)
 
+.PHONY: delete 
+delete: 
+	sls delete --verbose -s $(ENVIRONMENT)
+
 test: test-all
 
 .PHONY: test-all

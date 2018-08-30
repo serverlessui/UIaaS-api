@@ -24,6 +24,10 @@ clean:
 deploy: 
 	sls deploy --verbose -s $(ENVIRONMENT)
 
+.PHONY: delete 
+delete: 
+	sls remove --verbose -s $(ENVIRONMENT)
+
 .PHONY: bin-data
 bin-data:
 	# ./go-bindata -prefix $(IAAS_PATH) -pkg $(IAAS_LOCATION) -o $(IAAS_LOCATION)/$(IAAS_FILE) $(IAAS_PATH)
