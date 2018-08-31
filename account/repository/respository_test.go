@@ -28,11 +28,11 @@ func (client mockBadDynamoDbClient) PutItem(*dynamodb.PutItemInput) (*dynamodb.P
 	return &dynamodb.PutItemOutput{}, errors.New("An error occured")
 }
 
-func (client mockGoodDynamoDbClient) Query(*dynamodb.QueryInput) (*dynamodb.QueryOutput, error) {
-	return &dynamodb.QueryOutput{}, nil
+func (client mockGoodDynamoDbClient) GetItem(*dynamodb.GetItemInput) (*dynamodb.GetItemOutput, error) {
+	return &dynamodb.GetItemOutput{}, nil
 }
-func (client mockBadDynamoDbClient) Query(*dynamodb.QueryInput) (*dynamodb.QueryOutput, error) {
-	return &dynamodb.QueryOutput{}, errors.New("An error occured")
+func (client mockBadDynamoDbClient) GetItem(*dynamodb.GetItemInput) (*dynamodb.GetItemOutput, error) {
+	return &dynamodb.GetItemOutput{}, errors.New("An error occured")
 }
 
 func TestGetAccountReturnsAccountWithSuccessfulQueryCall(t *testing.T) {

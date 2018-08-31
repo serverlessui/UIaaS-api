@@ -47,21 +47,15 @@ func (repo DynamoAccountRepository) CreateAccount(account *handler.Account) (*ha
 
 //GetAccount returns an Account object based on an ID
 func (repo DynamoAccountRepository) GetAccount(accoundID string) (*handler.Account, error) {
-	var queryInput = &dynamodb.QueryInput{
+
+	result, err := repo.Svc.GetItem(&dynamodb.GetItemInput{
 		TableName: aws.String(repo.TableName),
-		// IndexName: aws.String("accountID"),
-		KeyConditions: map[string]*dynamodb.Condition{
+		Key: map[string]*dynamodb.AttributeValue{
 			"accountID": {
-				ComparisonOperator: aws.String("EQ"),
-				AttributeValueList: []*dynamodb.AttributeValue{
-					{
-						S: aws.String(accoundID),
-					},
-				},
+				S: aws.String(accoundID),
 			},
 		},
-	}
-	var resp, err = repo.Svc.Query(queryInput)
+	})
 
 	account := handler.Account{}
 
@@ -70,7 +64,7 @@ func (repo DynamoAccountRepository) GetAccount(accoundID string) (*handler.Accou
 		fmt.Println(err.Error())
 		return &account, err
 	}
-	err = dynamodbattribute.UnmarshalListOfMaps(resp.Items, &account)
+	err = dynamodbattribute.UnmarshalMap(result.Item, &account)
 
 	if err != nil {
 		fmt.Println("Error parsing response")
