@@ -75,6 +75,8 @@ Resources:
         Logging:
           Bucket: !Sub log.${FullDomainName}.s3.amazonaws.com.
           Prefix: access
+          Enabled: true
+          IncludeCookies: false
         DefaultCacheBehavior:
           AllowedMethods:
           - GET
