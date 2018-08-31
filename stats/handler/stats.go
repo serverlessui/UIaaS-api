@@ -24,9 +24,16 @@ func HandleGetStats(request events.APIGatewayProxyRequest) (events.APIGatewayPro
 	}
 	resp, err := json.Marshal(visit)
 	if err != nil {
-		return events.APIGatewayProxyResponse{Body: "", StatusCode: 500}, nil
+		return events.APIGatewayProxyResponse{Body: "", StatusCode: 500, Headers: createCorsHeaders()}, nil
 	}
 	responseString := string(resp)
 
-	return events.APIGatewayProxyResponse{Body: responseString, StatusCode: 200}, nil
+	return events.APIGatewayProxyResponse{Body: responseString, StatusCode: 200, Headers: createCorsHeaders()}, nil
+}
+
+func createCorsHeaders() map[string]string {
+	return map[string]string{
+		"Access-Control-Allow-Origin":      "*",
+		"Access-Control-Allow-Credentials": "true",
+	}
 }
