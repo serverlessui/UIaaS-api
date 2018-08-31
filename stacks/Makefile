@@ -11,7 +11,6 @@ build:
 	env GOOS=linux go build -ldflags="-s -w" -o bin/stackhandler stackhandler/main.go
 
 .PHONY: dependencies
-dependencies: bin-data
 	sudo npm install -g serverless
 	@go get github.com/tools/godep
 	dep ensure -v
@@ -30,7 +29,7 @@ delete:
 
 .PHONY: bin-data
 bin-data:
-	# ./go-bindata -prefix $(IAAS_PATH) -pkg $(IAAS_LOCATION) -o $(IAAS_LOCATION)/$(IAAS_FILE) $(IAAS_PATH)
+	./go-bindata -prefix $(IAAS_PATH) -pkg $(IAAS_LOCATION) -o $(IAAS_LOCATION)/$(IAAS_FILE) $(IAAS_PATH)
 
 test: test-all
 

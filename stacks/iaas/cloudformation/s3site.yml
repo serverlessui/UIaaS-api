@@ -73,7 +73,7 @@ Resources:
         Aliases:
         - !Ref 'FullDomainName'
         Logging:
-          Bucket: !Sub log.${FullDomainName}
+          Bucket: !Sub log.${FullDomainName}.s3.amazonaws.com.
           Prefix: access
         DefaultCacheBehavior:
           AllowedMethods:
