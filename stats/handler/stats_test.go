@@ -15,7 +15,7 @@ func TestHandleGetStats(t *testing.T) {
 		t.Fail()
 	}
 
-	expected := "{\"total\":10000000,\"totalPerMonth\":null,\"totalLastWeek\":10000,\"totalToday\":3333,\"visitsByCountry\":null}"
+	expected := "{\"total\":10000000,\"totalPerMonth\":[{\"data\":[0,5000,15000,8000,15000,9000,30000],\"label\":\"CCB Technologies\"}],\"totalLastWeek\":10000,\"totalToday\":3333,\"visitsByCountry\":null}"
 	actual := res.Body
 
 	if actual != expected {
