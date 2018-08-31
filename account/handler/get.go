@@ -20,7 +20,11 @@ func GetAccount(request events.APIGatewayProxyRequest, repository AccountReposit
 	if err != nil {
 		return events.APIGatewayProxyResponse{Body: "", StatusCode: http.StatusServiceUnavailable}, nil
 	}
+	//this can be refactored into a specific not found error in the repository
+	if account.AccountID == "" {
+		return events.APIGatewayProxyResponse{Body: "", StatusCode: http.StatusNotFound}, nil
 
+	}
 	resp, err := MarshallAccountStructToString(account)
 	if err != nil {
 		fmt.Println("Error processing request: ", err)
