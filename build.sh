@@ -1,5 +1,7 @@
 #!/bin/bash
 
+set -e
+
 buildStacks () {
   cd stacks && make
 }
