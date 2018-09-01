@@ -11,6 +11,7 @@ build:
 	env GOOS=linux go build -ldflags="-s -w" -o bin/stackhandler stackhandler/main.go
 
 .PHONY: dependencies
+dependencies:
 	sudo npm install -g serverless
 	@go get github.com/tools/godep
 	dep ensure -v
