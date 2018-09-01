@@ -101,11 +101,11 @@
 				{
 					"listen": "test",
 					"script": {
-						"id": "8498599a-6533-401a-8f26-c1f787ec262c",
+						"id": "0fbea6bf-c9f7-4033-bd31-8cb87e1572f2",
 						"type": "text/javascript",
 						"exec": [
-							"pm.test(\"Status code is 201\", function () {",
-							"    pm.response.to.have.status(201);",
+							"pm.test(\"Status code is 200\", function () {",
+							"    pm.response.to.have.status(200);",
 							"});"
 						]
 					}
@@ -119,7 +119,7 @@
 		{
 			"id": "4b347087-98c2-9a9a-f5a1-3700e7b2a441",
 			"name": "POST account copy copy",
-			"url": "{{URL}}/accounts/{{ACCOUNTID}}",
+			"url": "{{URL}}/accounts/NOTFOUND",
 			"description": null,
 			"data": [],
 			"dataMode": "raw",
