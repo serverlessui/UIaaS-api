@@ -1,0 +1,131 @@
+{
+	"id": "3f86b5fa-a98e-419b-924b-64c24ade8caf",
+	"name": "uiaas-stats-api",
+	"description": "",
+	"auth": null,
+	"events": null,
+	"variables": [],
+	"order": [
+		"69213f0b-3a2f-4b8c-949f-658575c10214",
+		"3fcf1a2a-242b-477b-b38e-493c1e1820c0"
+	],
+	"folders_order": [],
+	"folders": [],
+	"requests": [
+		{
+			"id": "3fcf1a2a-242b-477b-b38e-493c1e1820c0",
+			"name": "GET Latest statsmetadata",
+			"url": "{{URL}}/sites/{{SITEID}}/statistics/metadata/latest",
+			"description": null,
+			"data": [],
+			"dataMode": "raw",
+			"headerData": [
+				{
+					"key": "Content-Type",
+					"value": "application/json",
+					"enabled": true
+				}
+			],
+			"method": "GET",
+			"pathVariableData": [],
+			"queryParams": [],
+			"auth": null,
+			"events": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"id": "a30a5630-8923-4cf4-b9fe-816ec71a7116",
+						"type": "text/javascript",
+						"exec": [
+							""
+						]
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"id": "5250f6d7-b66e-4883-92ff-1a841bb5e496",
+						"type": "text/javascript",
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});",
+							"",
+							"",
+							"",
+							"pm.test(\"Your test name\", function () {",
+							"    var jsonData = pm.response.json();",
+							"    pm.expect(jsonData.accountID).to.eql(pm.globals.get(\"ACCOUNTID\"));",
+							"});",
+							"",
+							""
+						]
+					}
+				}
+			],
+			"folder": null,
+			"rawModeData": "{\n  \n  \"name\":        \"SOMENAME\",\n  \"email\":       \"email@email.com\",\n  \"phoneNumber\": \"3145019999\",\n  \"companyName\": \"Some company\",\n  \"address\":     \"123 fake st\",\n  \"userName\":    \"User Name\"\n}",
+			"headers": "Content-Type: application/json\n",
+			"pathVariables": {}
+		},
+		{
+			"id": "69213f0b-3a2f-4b8c-949f-658575c10214",
+			"name": "POST statsmetadata",
+			"url": "{{URL}}/sites/{{SITEID}}/statistics/metadata",
+			"description": null,
+			"data": [],
+			"dataMode": "raw",
+			"headerData": [
+				{
+					"key": "Content-Type",
+					"value": "application/json",
+					"enabled": true
+				}
+			],
+			"method": "POST",
+			"pathVariableData": [],
+			"queryParams": [],
+			"auth": null,
+			"events": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"id": "eb2124aa-bc5e-4a46-a9ae-59009472758f",
+						"type": "text/javascript",
+						"exec": [
+							"var randomSiteID = Math.random().toString(36).slice(2)",
+							"",
+							"postman.setGlobalVariable(\"SITEID\",randomSiteID);",
+							"",
+							"var randomTableName = Math.random().toString(36).slice(2)",
+							"",
+							"postman.setGlobalVariable(\"TABLENAME\",\"Table\"+randomTableName);",
+							"",
+							"var randomAccountID = Math.random().toString(36).slice(2)",
+							"",
+							"postman.setGlobalVariable(\"ACCOUNTID\",randomAccountID);"
+						]
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"id": "52e28b59-a86b-4677-baf3-96f45773e3e3",
+						"type": "text/javascript",
+						"exec": [
+							"pm.test(\"Status code is 201\", function () {",
+							"    pm.response.to.have.status(201);",
+							"});",
+							"",
+							""
+						]
+					}
+				}
+			],
+			"folder": null,
+			"rawModeData": "{\n\t\"accountID\": \"{{ACCOUNTID}}\",\n\t\"siteID\": \"{{SITEID}}\",\n\t\"TableName\": \"{{TABLENAME}}\"\n}",
+			"headers": "Content-Type: application/json\n",
+			"pathVariables": {}
+		}
+	]
+}

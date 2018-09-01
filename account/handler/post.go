@@ -27,6 +27,7 @@ type AccountRepository interface {
 func CreateAccount(request events.APIGatewayProxyRequest, repository AccountRepository) (events.APIGatewayProxyResponse, error) {
 	var account Account
 	err := json.Unmarshal([]byte(request.Body), &account)
+
 	returnedAccout, err := repository.CreateAccount(&account)
 
 	if err != nil {

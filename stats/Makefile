@@ -4,6 +4,8 @@ default: clean dependencies test build
 
 build:
 	env GOOS=linux go build -ldflags="-s -w" -o bin/statisticshandler main.go
+	env GOOS=linux go build -ldflags="-s -w" -o bin/postmetadatahandler postmetadata/main.go
+	env GOOS=linux go build -ldflags="-s -w" -o bin/getmetadatahandler getmetadata/main.go
 
 .PHONY: dependencies
 dependencies:

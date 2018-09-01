@@ -26,10 +26,15 @@ jobs:
 
     ##todo-refactor this
     - run: 
-        name: Integration tests v2
+        name: Account Integration tests 
         command: |
-          cd account/integration && ./setup.sh  uiaas-api-account-dev uiaas-account-api.postman_collection.json &&
-           ./run.sh uiaas-account-api.postman_collection.json
+          cd integration ./integration.sh uiaas-api-account uiaas-account-api.postman_collection.json dev
+
+    - run: 
+        name: Stats Integration tests
+        command: |
+          cd integration ./integration.sh  uiaas-api-stats uiaas-stats-api.postman_collection.json dev
+
     - save_cache:
         key: v1-pkg-cache
         paths:

@@ -21,7 +21,18 @@ frameworkVersion: ">=1.28.0 <2.0.0"
 provider:
   name: aws
   runtime: go1.x
-
+  environment:
+    DYNAMODB_TABLE: ${self:service}-${opt:stage, self:provider.stage}
+  iamRoleStatements:
+    - Effect: Allow
+      Action:
+        - dynamodb:Query
+        - dynamodb:Scan
+        - dynamodb:GetItem
+        - dynamodb:PutItem
+        - dynamodb:UpdateItem 
+        # - dynamodb:DeleteItem
+      Resource: "arn:aws:dynamodb:${opt:region, self:provider.region}:*:table/${self:provider.environment.DYNAMODB_TABLE}"
 # you can overwrite defaults here
 #  stage: dev
 #  region: us-east-1
@@ -39,9 +50,31 @@ functions:
       - http:
           path: statistics
           method: get
-          response:
+          response:  ##I've realized this isn't working since it's set to proxy mode
             headers:
               cors: true
+  postmetadata:
+    handler: bin/postmetadatahandler
+    events:
+      - http:
+          path: sites/{sid}/statistics/metadata
+          method: post
+  getmetadata:
+    handler: bin/getmetadatahandler
+    events:
+      - http:
+          path: sites/{sid}/statistics/metadata/latest
+          method: get
+
+  # getstats:
+  #   handler: bin/statisticshandler
+  #   events:
+  #     - sqs:
+  #         arn:
+  #           Fn::GetAtt:
+  #             - StatisticsQueue
+  #             - Arn
+
 #    The following are a few example events you can configure
 #    NOTE: Please make sure to change your handler code to work with those events
 #    Check the event documentation for details
@@ -77,13 +110,34 @@ functions:
 #      variable2: value2
 
 # you can add CloudFormation resource templates here
-#resources:
-#  Resources:
-#    NewResource:
-#      Type: AWS::S3::Bucket
-#      Properties:
-#        BucketName: my-new-bucket
+# resources:
+#   Resources:
+#     StatisticsQueue:
+#       Type: AWS::SQS::Queue
+#       Properties: 
+#         QueueName: statisticsqueue-${opt:stage}
+#     ## Need an athena bucket for query results 
+
 #  Outputs:
-#     NewOutput:
-#       Description: "Description for the output"
-#       Value: "Some output value"
+#     StatisticsQueueOutput:
+#       Description: "SQS queue name"
+#       Value: !Ref StatisticsQueue
+#       Name: !Sub SQSQueue${StatisticsQueue}
+resources:
+  Resources:
+    SitesTable:
+      Type: 'AWS::DynamoDB::Table'
+      # DeletionPolicy: Retain
+      Properties:
+        AttributeDefinitions:
+          -
+            AttributeName: "siteID"
+            AttributeType: "S"
+        KeySchema:
+          -
+            AttributeName: "siteID"
+            KeyType: "HASH"
+        ProvisionedThroughput:
+            ReadCapacityUnits: 1
+            WriteCapacityUnits: 1
+        TableName: ${self:provider.environment.DYNAMODB_TABLE}
