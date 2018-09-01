@@ -63,7 +63,7 @@ Resources:
   AccessLogBucket:
     Type: AWS::S3::Bucket
     Properties:
-      BucketName: !Sub log.${FullDomainName}
+      BucketName: !Sub log.${FullDomainName}.s3.amazonaws.com
 
   WebsiteBucketPolicy:
     Type: AWS::S3::BucketPolicy
