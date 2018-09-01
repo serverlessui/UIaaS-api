@@ -28,12 +28,7 @@ jobs:
     - run: 
         name: Account Integration tests 
         command: |
-          cd integration ./integration.sh uiaas-api-account uiaas-account-api.postman_collection.json dev
-
-    - run: 
-        name: Stats Integration tests
-        command: |
-          cd integration ./integration.sh  uiaas-api-stats uiaas-stats-api.postman_collection.json dev
+          cd integration && ./integration.sh uiaas-api-account uiaas-account-api.postman_collection.json dev && ./integration.sh  uiaas-api-stats uiaas-stats-api.postman_collection.json dev 
 
     - save_cache:
         key: v1-pkg-cache
