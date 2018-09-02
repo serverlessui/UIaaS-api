@@ -63,7 +63,7 @@ functions:
     handler: bin/getmetadatahandler
     events:
       - http:
-          path: sites/{sid}/statistics/metadata/latest
+          path: sites/{sid}/statistics/metadata
           method: get
 
   # getstats:

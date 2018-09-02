@@ -15,7 +15,7 @@
 		{
 			"id": "3fcf1a2a-242b-477b-b38e-493c1e1820c0",
 			"name": "GET Latest statsmetadata",
-			"url": "{{URL}}/sites/{{SITEID}}/statistics/metadata/latest",
+			"url": "{{URL}}/sites/{{SITEID}}/statistics/metadata",
 			"description": null,
 			"data": [],
 			"dataMode": "raw",
