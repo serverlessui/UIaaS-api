@@ -91,7 +91,7 @@ resources:
     S3LogSNSTopic:
       Type: AWS::SNS::Topic
       Properties:
-        TopicName: !Sub StatsTopic${AWS::StackName}
+        TopicName: ServerlessUIStatsTopic
 
     S3LogSNSTopicPolicy:
       Type: AWS::SNS::TopicPolicy
