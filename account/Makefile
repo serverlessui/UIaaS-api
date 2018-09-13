@@ -24,12 +24,17 @@ deploy:
 delete: 
 	sls remove --verbose -s $(ENVIRONMENT)
 
-test: test-all
+
+test: test-all test-stack
 
 .PHONY: test-all
 test-all:
 	@go test -v -cover ./$(SRC_LOCATION)/...
 
+.PHONY: test-stack
+test-stack: 
+	sls deploy --noDeploy
+	
 .PHONY: test-min
 test-min:
 	@go test ./...
