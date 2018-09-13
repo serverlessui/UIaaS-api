@@ -47,7 +47,8 @@ functions:
   createstatistic:
     handler: bin/poststatisticshandler
     events:
-      - sns: 'Fn::ImportValue': 'S3LogSNSTopicArn'        
+      - sns: 
+        'Fn::ImportValue' : 'S3LogSNSTopicArn'        
   getstats:
     handler: bin/statisticshandler
     events:
