@@ -44,6 +44,12 @@ package:
    - ./bin/**
 
 functions:
+  createstatistic:
+    handler: bin/poststatisticshandler
+    events:
+      - http:
+          path: sites/{sid}/statistics
+          method: post          
   getstats:
     handler: bin/statisticshandler
     events:
