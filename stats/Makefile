@@ -25,7 +25,7 @@ deploy:
 delete: 
 	sls delete --verbose -s $(ENVIRONMENT)
 
-test: test-all test-stack
+test: test-all
 
 .PHONY: test-all
 test-all:

@@ -25,7 +25,7 @@ delete:
 	sls remove --verbose -s $(ENVIRONMENT)
 
 
-test: test-all test-stack
+test: test-all
 
 .PHONY: test-all
 test-all:
