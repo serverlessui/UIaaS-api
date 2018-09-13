@@ -47,18 +47,13 @@ functions:
   createstatistic:
     handler: bin/poststatisticshandler
     events:
-      - http:
-          path: sites/{sid}/statistics
-          method: post          
+      - sns: 'Fn::ImportValue': 'S3LogSNSTopicArn'        
   getstats:
     handler: bin/statisticshandler
     events:
       - http:
           path: statistics
           method: get
-          response:  ##I've realized this isn't working since it's set to proxy mode
-            headers:
-              cors: true
   postmetadata:
     handler: bin/postmetadatahandler
     events:
