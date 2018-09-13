@@ -32,7 +32,7 @@ delete:
 bin-data:
 	./go-bindata -prefix $(IAAS_PATH) -pkg $(IAAS_LOCATION) -o $(IAAS_LOCATION)/$(IAAS_FILE) $(IAAS_PATH)
 
-test: test-all test-stack
+test: test-all
 
 .PHONY: test-all
 test-all:
