@@ -115,4 +115,5 @@ resources:
         - Ref: S3LogSNSTopic
   Outputs:
     S3LogSNSTopicArn:
-      Value: !Ref: S3LogSNSTopic
+      Value: 
+        Ref: S3LogSNSTopic
