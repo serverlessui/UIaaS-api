@@ -64,7 +64,40 @@ Resources:
     Type: AWS::S3::Bucket
     Properties:
       BucketName: !Sub log.${FullDomainName}
+      NotificationConfiguration:
+        TopicConfigurations:
+        - Event:
+            Ref: S3Event
+          Topic:
+            Ref: S3LogSNSTopic
 
+  S3LogSNSTopic:
+    Type: AWS::SNS::Topic
+    Properties:
+      TopicName: !Sub StatsTopic${AWS::StackName}
+
+  S3LogSNSTopicPolicy:
+    Type: AWS::SNS::TopicPolicy
+    Properties:
+      PolicyDocument:
+        Version: '2012-10-17'
+        Statement:
+        - Effect: Allow
+          Principal:
+            Service: s3.amazonaws.com
+          Action:
+          - SNS:Publish
+          Resource: "*"
+          Condition:
+            ArnLike:
+              aws:SourceArn:
+                Fn::Join:
+                - ''
+                - - 'arn:aws:s3:*:*:'
+                  - Ref: AccessLogBucket
+      Topics:
+      - Ref: S3LogSNSTopic
+      
   WebsiteBucketPolicy:
     Type: AWS::S3::BucketPolicy
     Properties:
