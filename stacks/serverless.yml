@@ -86,3 +86,33 @@ functions:
 #      variable2: value2
 
 # you can add CloudFormation resource templates here
+resources:
+  Resources:
+    S3LogSNSTopic:
+      Type: AWS::SNS::Topic
+      Properties:
+        TopicName: !Sub StatsTopic${AWS::StackName}
+
+    S3LogSNSTopicPolicy:
+      Type: AWS::SNS::TopicPolicy
+      Properties:
+        PolicyDocument:
+          Version: '2012-10-17'
+          Statement:
+          - Effect: Allow
+            Principal:
+              Service: s3.amazonaws.com
+            Action:
+            - SNS:Publish
+            Resource: "*"
+            Condition:
+              ArnLike:
+                aws:SourceArn:
+                  Fn::Join:
+                  - ''
+                  - - 'arn:aws:s3:*:*:*' #todo- refactor this for least priv
+        Topics:
+        - Ref: S3LogSNSTopic
+  Outputs:
+    S3LogSNSTopicArn:
+      Value: !Ref: S3LogSNSTopic
