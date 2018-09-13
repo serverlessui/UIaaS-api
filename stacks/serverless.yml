@@ -122,3 +122,5 @@ resources:
     S3LogSNSTopicArn:
       Value: 
         Ref: S3LogSNSTopic
+      Export:
+        Name: S3LogSNSTopicArn
