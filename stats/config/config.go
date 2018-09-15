@@ -6,9 +6,11 @@ import (
 
 	"github.com/aws/aws-sdk-go/aws"
 	"github.com/aws/aws-sdk-go/aws/session"
+	"github.com/aws/aws-sdk-go/service/athena"
 	"github.com/aws/aws-sdk-go/service/dynamodb"
 	"github.com/serverlessui/UIaaS-api/stats/handler"
 	"github.com/serverlessui/UIaaS-api/stats/repository"
+	"github.com/serverlessui/UIaaS-api/stats/statistics"
 )
 
 const (
@@ -21,7 +23,21 @@ func CreateRepository() handler.StatsMetaDataRepository {
 	return repository.DynamoDBStatsMetaRepository{Svc: createDynamoDB(), TableName: tableName}
 }
 
+//CreateStatistics method to instantiate Statistics implementation
+func CreateStatistics() handler.WebsiteStatistics {
+	return statistics.AthenaStats{Client: createAthena()}
+}
+
+func createAthena() *athena.Athena {
+	svc := athena.New(createSession())
+	return svc
+}
 func createDynamoDB() *dynamodb.DynamoDB {
+
+	return dynamodb.New(createSession())
+}
+
+func createSession() *session.Session {
 	// Initialize a session in us-west-2 that the SDK will use to load
 	// credentials from the shared credentials file ~/.aws/credentials.
 	sess, err := session.NewSession(&aws.Config{
@@ -32,6 +48,5 @@ func createDynamoDB() *dynamodb.DynamoDB {
 		log.Fatal("error creating session")
 		os.Exit(1)
 	}
-
-	return dynamodb.New(sess)
+	return sess
 }

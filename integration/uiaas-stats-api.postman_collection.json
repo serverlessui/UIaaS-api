@@ -7,7 +7,8 @@
 	"variables": [],
 	"order": [
 		"69213f0b-3a2f-4b8c-949f-658575c10214",
-		"3fcf1a2a-242b-477b-b38e-493c1e1820c0"
+		"3fcf1a2a-242b-477b-b38e-493c1e1820c0",
+		"ea9153fc-7bec-429d-8685-b0123d8b7987"
 	],
 	"folders_order": [],
 	"folders": [],
@@ -125,6 +126,45 @@
 			"folder": null,
 			"rawModeData": "{\n\t\"accountID\": \"{{ACCOUNTID}}\",\n\t\"siteID\": \"{{SITEID}}\",\n\t\"TableName\": \"{{TABLENAME}}\"\n}",
 			"headers": "Content-Type: application/json\n",
+			"pathVariables": {}
+		},
+		{
+			"id": "ea9153fc-7bec-429d-8685-b0123d8b7987",
+			"name": "GET statistics",
+			"url": "{{URL}}/statistics?bucketname=somebucket",
+			"description": null,
+			"data": [],
+			"dataMode": "params",
+			"headerData": [],
+			"method": "GET",
+			"pathVariableData": [],
+			"queryParams": [
+				{
+					"key": "bucketname",
+					"value": "somebucket",
+					"equals": true,
+					"description": "",
+					"enabled": true
+				}
+			],
+			"auth": null,
+			"events": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "1d41ae4f-7f4f-4bdf-a737-608c5175abbf",
+						"type": "text/javascript",
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});",
+							""
+						]
+					}
+				}
+			],
+			"folder": null,
+			"headers": "",
 			"pathVariables": {}
 		}
 	]

@@ -1,21 +1,36 @@
 package handler
 
 import (
+	"errors"
 	"reflect"
 	"testing"
 
 	"github.com/aws/aws-lambda-go/events"
+	"github.com/aws/aws-sdk-go/service/athena"
 )
 
+type mockWebsitStats struct {
+}
+
+func (mock mockWebsitStats) Get(sourceName string) (*athena.ResultSet, error) {
+	return &athena.ResultSet{}, nil
+}
+
+type mockBadWebsitStats struct {
+}
+
+func (mock mockBadWebsitStats) Get(sourceName string) (*athena.ResultSet, error) {
+	return &athena.ResultSet{}, errors.New("")
+}
 func TestHandleGetStats(t *testing.T) {
 	request := events.APIGatewayProxyRequest{}
-	res, err := HandleGetStats(request)
+	res, err := HandleGetStats(&request, mockWebsitStats{})
 	if err != nil {
 		t.Log("Error encounterd when none expected ", err)
 		t.Fail()
 	}
 
-	expected := "{\"total\":10000000,\"totalPerMonth\":[{\"data\":[0,5000,15000,8000,15000,9000,30000],\"label\":\"CCB Technologies\"}],\"totalLastWeek\":10000,\"totalToday\":3333,\"visitsByCountry\":null}"
+	expected := "{\"ResultSetMetadata\":null,\"Rows\":null}"
 	actual := res.Body
 
 	if actual != expected {
@@ -23,10 +38,25 @@ func TestHandleGetStats(t *testing.T) {
 		t.Fail()
 	}
 }
+func TestHandleGetStatsReturns503WhenGetStatsFails(t *testing.T) {
+	request := events.APIGatewayProxyRequest{}
+	res, err := HandleGetStats(&request, mockBadWebsitStats{})
+	if err != nil {
+		t.Log("Error encounterd when none expected ", err)
+		t.Fail()
+	}
 
+	expected := 503
+	actual := res.StatusCode
+
+	if actual != expected {
+		t.Log("Expected ", expected, " got ", actual)
+		t.Fail()
+	}
+}
 func TestHandleGetStatsHasCorsHeaders(t *testing.T) {
 	request := events.APIGatewayProxyRequest{}
-	res, err := HandleGetStats(request)
+	res, err := HandleGetStats(&request, mockWebsitStats{})
 	if err != nil {
 		t.Log("Error encounterd when none expected ", err)
 		t.Fail()

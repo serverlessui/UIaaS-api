@@ -43,18 +43,15 @@ package:
  include:
    - ./bin/**
 
-functions:
-  createstatistic:
-    handler: bin/poststatisticshandler
-    events:
-      - sns: 
-        'Fn::ImportValue' : 'S3LogSNSTopicArn'        
+functions:       
   getstats:
     handler: bin/statisticshandler
     events:
       - http:
           path: statistics
           method: get
+          request:
+            template: '{ "bucketname" : "$input.params(''bucketname'')" }'
   postmetadata:
     handler: bin/postmetadatahandler
     events:
