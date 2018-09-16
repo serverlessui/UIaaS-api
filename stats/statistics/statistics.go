@@ -15,10 +15,14 @@ func (stats AthenaStats) Get(sourceName string) (*athena.ResultSet, error) {
 	//start query execution
 	somequeryString := "SELECT count(distinct(requestip)) AS total FROM cloudfront_logs"
 	sourceName = "default"
+	s3OutputBucket := "s3://aws-glue-scripts-417615409974-us-east-1"
 	input := athena.StartQueryExecutionInput{QueryExecutionContext: &athena.QueryExecutionContext{
 		Database: &sourceName,
 	},
 		QueryString: &somequeryString,
+		ResultConfiguration: &athena.ResultConfiguration{
+			OutputLocation: &s3OutputBucket,
+		},
 	}
 
 	output, err := stats.Client.StartQueryExecution(&input)
