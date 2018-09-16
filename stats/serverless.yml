@@ -26,14 +26,16 @@ provider:
   iamRoleStatements:
     - Effect: Allow
       Action:
+        - athena:GetQueryExecution
+        - athena:StartQueryExecution
+      Resource: "*"
+    - Effect: Allow
+      Action:
         - dynamodb:Query
         - dynamodb:Scan
         - dynamodb:GetItem
         - dynamodb:PutItem
         - dynamodb:UpdateItem 
-        - athena:GetQueryExecution
-        - athena:StartQueryExecution
-        # - dynamodb:DeleteItem
       Resource: "arn:aws:dynamodb:${opt:region, self:provider.region}:*:table/${self:provider.environment.DYNAMODB_TABLE}"
 # you can overwrite defaults here
 #  stage: dev
