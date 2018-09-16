@@ -26,7 +26,7 @@ provider:
   iamRoleStatements:
     - Effect: Allow
       Action:
-        - athena:GetQueryExecution
+        - athena:GetQueryResults
         - athena:StartQueryExecution
       Resource: "*"
     - Effect: Allow
