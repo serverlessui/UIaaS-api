@@ -33,8 +33,8 @@ func (stats AthenaStats) Get(sourceName string) (*athena.ResultSet, error) {
 	if err != nil {
 		return nil, err
 	}
-	log.Println("waiting 2 seconds as a hack")
-	time.Sleep(2 * time.Second)
+	log.Println("waiting 4 seconds as a hack")
+	time.Sleep(4 * time.Second)
 
 	resp, err := stats.Client.GetQueryResults(&athena.GetQueryResultsInput{
 		QueryExecutionId: output.QueryExecutionId,
