@@ -2,6 +2,7 @@ package handler
 
 import (
 	"encoding/json"
+	"log"
 
 	"github.com/aws/aws-lambda-go/events"
 	"github.com/aws/aws-sdk-go/service/athena"
@@ -34,14 +35,18 @@ type SiteVisitsPerMonth struct {
 //HandleGetStats method to handle get stats request
 func HandleGetStats(request *events.APIGatewayProxyRequest, stats WebsiteStatistics) (events.APIGatewayProxyResponse, error) {
 	bucket := request.QueryStringParameters[bucketNameParam]
+	log.Println("received request with bucket ", bucket)
 	visit, err := stats.Get(bucket)
 
 	if err != nil {
+		log.Println("ERROR: error received when processing request ", err)
 		return events.APIGatewayProxyResponse{Body: "", StatusCode: 503, Headers: createCorsHeaders()}, nil
 	}
 	resp, err := json.Marshal(visit)
 
 	if err != nil {
+		log.Println("ERROR: error marshalling response ", err)
+
 		return events.APIGatewayProxyResponse{Body: "", StatusCode: 500, Headers: createCorsHeaders()}, nil
 	}
 	responseString := string(resp)
