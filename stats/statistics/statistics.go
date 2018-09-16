@@ -1,6 +1,9 @@
 package statistics
 
 import (
+	"log"
+	"time"
+
 	"github.com/aws/aws-sdk-go/service/athena"
 	"github.com/aws/aws-sdk-go/service/athena/athenaiface"
 )
@@ -30,6 +33,8 @@ func (stats AthenaStats) Get(sourceName string) (*athena.ResultSet, error) {
 	if err != nil {
 		return nil, err
 	}
+	log.Println("waiting 2 seconds as a hack")
+	time.Sleep(2 * time.Second)
 
 	resp, err := stats.Client.GetQueryResults(&athena.GetQueryResultsInput{
 		QueryExecutionId: output.QueryExecutionId,
