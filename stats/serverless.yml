@@ -26,7 +26,7 @@ provider:
   iamRoleStatements:
     - Effect: Allow
       Action:
-        - athena:*
+        - "*"
       Resource: "*"
     - Effect: Allow
       Action:
