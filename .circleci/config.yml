@@ -19,11 +19,6 @@ jobs:
           aws configure set default.region us-east-1
           aws configure set default.output json
     - run: ./build.sh && ./release.sh dev 
-    - run: 
-        name: Integration tests
-        command: |
-          cd stacks/integration && newman run uiaas-api.postman_collection.json
-
     ##todo-refactor this
     - run: 
         name: Account Integration tests 
