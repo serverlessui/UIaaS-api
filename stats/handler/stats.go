@@ -27,12 +27,14 @@ type VisitStatistics struct {
 
 //SiteVisitsPerMonth represents month visits per site
 type SiteVisitsPerMonth struct {
-	Data  []float64 `json:"data"`
-	Label string    `json:"label"`
+	Data  []int  `json:"data"`
+	Label string `json:"label"`
 }
 
 //HandleGetStats method to handle get stats request
 func HandleGetStats(request *events.APIGatewayProxyRequest, stats WebsiteStatistics) (events.APIGatewayProxyResponse, error) {
+	site1StatPerMonth := SiteVisitsPerMonth{Data: []int{0, 5000, 15000, 8000, 15000, 9000, 30000}, Label: "CCB Technologies"}
+
 	bucket := request.QueryStringParameters[bucketNameParam]
 	log.Println("received request with bucket ", bucket)
 	visit, err := stats.Get(bucket)
@@ -41,6 +43,8 @@ func HandleGetStats(request *events.APIGatewayProxyRequest, stats WebsiteStatist
 		log.Println("ERROR: error received when processing request ", err)
 		return events.APIGatewayProxyResponse{Body: "", StatusCode: 503, Headers: createCorsHeaders()}, nil
 	}
+	visit.TotalPerMonth = []SiteVisitsPerMonth{site1StatPerMonth}
+
 	resp, err := json.Marshal(visit)
 
 	if err != nil {
