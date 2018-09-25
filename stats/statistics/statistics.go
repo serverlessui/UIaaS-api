@@ -45,6 +45,7 @@ func (stats AthenaStats) Get(sourceName string) (*handler.VisitStatistics, error
 		return nil, err
 	}
 	visits := handler.VisitStatistics{}
+	log.Println("Returned response ", resp.GoString())
 	err = convertSingleRowAthenaOutput(resp, &visits)
 	if err != nil {
 		return nil, err
