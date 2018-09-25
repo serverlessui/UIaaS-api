@@ -6,21 +6,20 @@ import (
 	"testing"
 
 	"github.com/aws/aws-lambda-go/events"
-	"github.com/aws/aws-sdk-go/service/athena"
 )
 
 type mockWebsitStats struct {
 }
 
-func (mock mockWebsitStats) Get(sourceName string) (*athena.ResultSet, error) {
-	return &athena.ResultSet{}, nil
+func (mock mockWebsitStats) Get(sourceName string) (*VisitStatistics, error) {
+	return &VisitStatistics{}, nil
 }
 
 type mockBadWebsitStats struct {
 }
 
-func (mock mockBadWebsitStats) Get(sourceName string) (*athena.ResultSet, error) {
-	return &athena.ResultSet{}, errors.New("")
+func (mock mockBadWebsitStats) Get(sourceName string) (*VisitStatistics, error) {
+	return &VisitStatistics{}, errors.New("")
 }
 func TestHandleGetStats(t *testing.T) {
 	request := events.APIGatewayProxyRequest{}
@@ -30,7 +29,7 @@ func TestHandleGetStats(t *testing.T) {
 		t.Fail()
 	}
 
-	expected := "{\"ResultSetMetadata\":null,\"Rows\":null}"
+	expected := "{\"total\":0,\"totalPerMonth\":null,\"totalLastWeek\":0,\"totalToday\":0,\"visitsByCountry\":null}"
 	actual := res.Body
 
 	if actual != expected {

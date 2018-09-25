@@ -26,7 +26,7 @@ provider:
   iamRoleStatements:
     - Effect: Allow
       Action:
-        - "*"
+        - "*" #todo- refactor to least priveledge
       Resource: "*"
     - Effect: Allow
       Action:

@@ -5,7 +5,6 @@ import (
 	"log"
 
 	"github.com/aws/aws-lambda-go/events"
-	"github.com/aws/aws-sdk-go/service/athena"
 )
 
 const (
@@ -14,12 +13,12 @@ const (
 
 //WebsiteStatistics interface defining CRUD ops arounds stats
 type WebsiteStatistics interface {
-	Get(sourceName string) (*athena.ResultSet, error)
+	Get(sourceName string) (*VisitStatistics, error)
 }
 
 //VisitStatistics is a struct representing visit statistical data
 type VisitStatistics struct {
-	Total           float64              `json:"total"`
+	Total           int                  `json:"total"`
 	TotalPerMonth   []SiteVisitsPerMonth `json:"totalPerMonth"`
 	TotalLastWeek   float64              `json:"totalLastWeek"`
 	TotalToday      float64              `json:"totalToday"`

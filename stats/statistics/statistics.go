@@ -6,6 +6,7 @@ import (
 
 	"github.com/aws/aws-sdk-go/service/athena"
 	"github.com/aws/aws-sdk-go/service/athena/athenaiface"
+	"github.com/serverlessui/UIaaS-api/stats/handler"
 )
 
 //AthenaStats is a struct
@@ -14,7 +15,7 @@ type AthenaStats struct {
 }
 
 //Get method to retrieve statistics
-func (stats AthenaStats) Get(sourceName string) (*athena.ResultSet, error) {
+func (stats AthenaStats) Get(sourceName string) (*handler.VisitStatistics, error) {
 	//start query execution
 	somequeryString := "SELECT count(distinct(requestip)) AS total FROM cloudfront_logs"
 	sourceName = "default"
@@ -43,7 +44,11 @@ func (stats AthenaStats) Get(sourceName string) (*athena.ResultSet, error) {
 	if err != nil {
 		return nil, err
 	}
-
+	visits := handler.VisitStatistics{}
+	err = convertSingleRowAthenaOutput(resp, &visits)
+	if err != nil {
+		return nil, err
+	}
 	//profit
-	return resp.ResultSet, nil
+	return &visits, nil
 }

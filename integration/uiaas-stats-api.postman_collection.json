@@ -152,13 +152,17 @@
 				{
 					"listen": "test",
 					"script": {
-						"id": "1d41ae4f-7f4f-4bdf-a737-608c5175abbf",
+						"id": "ed8f2a8b-0bb2-45b3-9518-9489cf36af29",
 						"type": "text/javascript",
 						"exec": [
 							"pm.test(\"Status code is 200\", function () {",
 							"    pm.response.to.have.status(200);",
 							"});",
-							""
+							"",
+							"pm.test(\"Total is returned in response\", function () {",
+							"    var jsonData = pm.response.json();",
+							"    pm.expect(jsonData.total).to.be.above(1);",
+							"});"
 						]
 					}
 				}
