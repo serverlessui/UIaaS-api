@@ -8,7 +8,7 @@ build:
 
 .PHONY: dependencies
 dependencies:
-	# sudo npm install -g serverless
+	sudo npm list -g serverless || sudo npm install -g serverless
 	@go get github.com/tools/godep
 	dep ensure -v
 
