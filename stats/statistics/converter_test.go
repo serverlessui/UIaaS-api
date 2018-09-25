@@ -17,11 +17,15 @@ func TestWhenTotalIsReceivedGetQueryResultsOutputContainsTotal(t *testing.T) {
 			Rows: []*athena.Row{&athena.Row{
 				Data: []*athena.Datum{
 					&athena.Datum{VarCharValue: &totalVarCharValue},
+				},
+			}, &athena.Row{
+				Data: []*athena.Datum{
 					&athena.Datum{VarCharValue: &totalValue},
 				},
 			}},
 		},
 	}
+	t.Log(output.GoString())
 
 	err := convertSingleRowAthenaOutput(output, &input)
 	if err != nil {
@@ -47,6 +51,9 @@ func TestWhenTotalIsInvalidGetQueryResultsOutputReturnsError(t *testing.T) {
 			Rows: []*athena.Row{&athena.Row{
 				Data: []*athena.Datum{
 					&athena.Datum{VarCharValue: &totalVarCharValue},
+				},
+			}, &athena.Row{
+				Data: []*athena.Datum{
 					&athena.Datum{VarCharValue: &totalValue},
 				},
 			}},
@@ -65,9 +72,7 @@ func TestWhenNoResultsReturnedGetQueryResultsOutputReturns0Total(t *testing.T) {
 	input := handler.VisitStatistics{}
 	output := &athena.GetQueryResultsOutput{
 		ResultSet: &athena.ResultSet{
-			Rows: []*athena.Row{&athena.Row{
-				Data: []*athena.Datum{},
-			}},
+			Rows: []*athena.Row{},
 		},
 	}
 

@@ -8,16 +8,14 @@ import (
 )
 
 func convertSingleRowAthenaOutput(output *athena.GetQueryResultsOutput, input *handler.VisitStatistics) error {
-
-	for _, row := range output.ResultSet.Rows {
-		if len(row.Data) == 0 {
-			return nil
-		}
-		value, err := strconv.Atoi(*row.Data[1].VarCharValue)
-		if err != nil {
-			return err
-		}
-		input.Total = value
+	if len(output.ResultSet.Rows) == 0 {
+		return nil
 	}
+	value, err := strconv.Atoi(*output.ResultSet.Rows[1].Data[0].VarCharValue)
+	if err != nil {
+		return err
+	}
+	input.Total = value
+
 	return nil
 }
