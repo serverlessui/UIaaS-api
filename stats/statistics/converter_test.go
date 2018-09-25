@@ -60,3 +60,28 @@ func TestWhenTotalIsInvalidGetQueryResultsOutputReturnsError(t *testing.T) {
 	}
 
 }
+
+func TestWhenNoResultsReturnedGetQueryResultsOutputReturns0Total(t *testing.T) {
+	input := handler.VisitStatistics{}
+	output := &athena.GetQueryResultsOutput{
+		ResultSet: &athena.ResultSet{
+			Rows: []*athena.Row{&athena.Row{
+				Data: []*athena.Datum{},
+			}},
+		},
+	}
+
+	err := convertSingleRowAthenaOutput(output, &input)
+	if err != nil {
+		t.Log("Error received when none expected ", err)
+		t.Fail()
+	}
+	expected := 0
+	actual := input.Total
+
+	if actual != expected {
+		t.Log("Got ", actual, " expected ", expected)
+		t.Fail()
+	}
+
+}
